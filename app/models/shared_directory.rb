@@ -1,0 +1,2 @@
+class SharedDirectory < ApplicationRecord
+end
