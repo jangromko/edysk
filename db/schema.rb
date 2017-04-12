@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412123048) do
+ActiveRecord::Schema.define(version: 20170412123754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20170412123048) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_files", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
+    t.integer "directory_id"
+    t.string "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "login"
     t.string "email"
@@ -44,5 +53,7 @@ ActiveRecord::Schema.define(version: 20170412123048) do
 
   add_foreign_key "directories", "directories"
   add_foreign_key "directories", "users"
+  add_foreign_key "user_files", "directories"
+  add_foreign_key "user_files", "users"
   add_foreign_key "users", "account_types"
 end
