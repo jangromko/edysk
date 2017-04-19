@@ -1,0 +1,66 @@
+.inputStandard
+{
+    border: none;
+    border-radius: 1px;
+
+    margin-bottom: 20px;
+    padding: 8px;
+
+    width: 80%;
+    min-width: 190px;
+}
+
+.center
+{
+    text-align: center;
+}
+
+.buttonDefault
+{
+    border: none;
+    border-radius: 1px;
+
+    margin-top: 10px;
+    padding: 10px;
+
+    width: 80%;
+    min-width: 120px;
+
+
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.buttonDefault:hover
+{
+    cursor: hand;
+}
+
+.mediumDarkGreen
+{
+    background-color: #108845;
+    color: #fafffa;
+}
+
+.mediumDarkGreen:hover
+{
+    background-color: #20aa55;
+    color: #fdfffd;
+}
+
+.mediumDarkRed
+{
+    background-color: #aa2020;
+    color: #fffafa;
+}
+
+.mediumDarkRed:hover
+{
+    background-color: #bb2020;
+    color: #fffdfd;
+}
+
+.loginRegister
+{
+    text-align: right;
+}

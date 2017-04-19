@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<title>Strona główna</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="public.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  body,h1 {font-family: "Raleway", sans-serif}
+  body, html {height: 100%}
+  .bgimg {
+    background-image: url('/background_winter.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+  }
+</style>
+
+<script>
+    function menuSmall() {
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+</script>
+
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card-2">
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="menuSmall()" title="Menu"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">STRONA GŁÓWNA</a>
+    <a href="" class="w3-bar-item w3-button w3-padding-large w3-hide-small">DOWIEDZ SIĘ WIĘCEJ</a>
+    <a href="" class="w3-bar-item w3-button w3-padding-large w3-hide-small">WIĘCEJ MOŻLIWOŚCI</a>
+    <a href="" class="w3-bar-item w3-button w3-padding-large w3-hide-small">REGULAMIN</a>
+    <div class="loginRegister">
+      <a href="" class="w3-right w3-button w3-bar-item w3-padding-large w3-hide-small">ZAŁÓŻ KONTO</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+  <a href="" class="w3-bar-item w3-button w3-padding-large">DOWIEDZ SIĘ WIĘCEJ</a>
+  <a href="" class="w3-bar-item w3-button w3-padding-large">WIĘCEJ MOŻLIWOŚCI</a>
+  <a href="" class="w3-bar-item w3-button w3-padding-large">REGULAMIN</a>
+</div>
+
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+  <div class="w3-display-middle center">
+    <form action="">
+      <input type="text" placeholder="Login" class="inputStandard w3-animate-top"/>
+      <input type="password" placeholder="Hasło" class="inputStandard w3-animate-top"/>
+      <input type="submit" class="buttonDefault mediumDarkRed w3-animate-top" value="Zaloguj"/>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
