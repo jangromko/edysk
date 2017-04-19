@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get 'public/home'
+  root to: 'public#home'
+  get 'drive', to: 'main#drive'
+
 
   namespace :public do
     get 'public_controller/home'
