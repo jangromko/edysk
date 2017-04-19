@@ -64,3 +64,8 @@
 {
     text-align: right;
 }
+
+.noDecoration
+{
+    text-decoration: none;
+}
