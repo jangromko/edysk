@@ -69,3 +69,18 @@
 {
     text-decoration: none;
 }
+
+.noDecoration:hover
+{
+    text-decoration: none;
+}
+
+.black
+{
+    color: #000100;
+}
+
+.black:hover
+{
+    color: #000100;
+}
