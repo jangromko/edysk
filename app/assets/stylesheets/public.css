@@ -107,14 +107,15 @@
 
     padding-right: 30px;
     padding-left: 30px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 5%;
+    padding-bottom: 5%;
+
+    margin-top: 60px;
 }
 
 .sectionTitle
 {
     color: #aa2020;
-    margin-bottom: 40px;
-    margin-top: 10px;
+    margin-bottom: 5%;
     font-size: 2rem;
 }
