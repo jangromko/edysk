@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   post 'file/copy'
   put 'file/upload'
   post 'file/unshare'
+  post 'file/publish'
   get 'registration', to: 'public#registration'
   root to: 'public#home'
   get 'drive', to: 'main#drive'
