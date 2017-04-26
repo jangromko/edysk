@@ -7,6 +7,7 @@
   body,h1 {font-family: "Raleway", sans-serif}
   body, html {height: 100%}
   .bgimg {
+    background-image: url('/background_winter.jpg');
     min-height: 100%;
     background-position: center;
     background-size: cover;
@@ -18,12 +19,17 @@
 
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
   <div class="w3-display-middle center">
-    <form action="">
-      <input type="text" placeholder="Login" class="inputStandard w3-animate-top"/>
-      <input type="password" placeholder="Hasło" class="inputStandard w3-animate-top"/>
-      <input type="password" placeholder="Powtórz hasło" class="inputStandard w3-animate-top"/>
-      <input type="submit" class="buttonDefault mediumDarkRed w3-animate-top" value="Zarejestruj"/>
-    </form>
+    <div class="frame">
+      <div class="sectionTitle">
+        Załóż konto
+      </div>
+      <form action="">
+        <input type="text" placeholder="Login" class="inputStandard w3-animate-top"/>
+        <input type="password" placeholder="Hasło" class="inputStandard w3-animate-top"/>
+        <input type="password" placeholder="Powtórz hasło" class="inputStandard w3-animate-top"/>
+        <input type="submit" class="buttonDefault mediumDarkRed w3-animate-top" value="Zarejestruj"/>
+      </form>
+    </div>
   </div>
 </div>
 
