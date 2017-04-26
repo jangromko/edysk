@@ -19,13 +19,14 @@ Rails.application.routes.draw do
   post 'file/copy'
   put 'file/upload'
   post 'file/unshare'
-
+  get 'registration', to: 'public#registration'
   root to: 'public#home'
   get 'drive', to: 'main#drive'
 
 
   namespace :public do
     get 'public_controller/home'
+    get 'public_controller/registration'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
