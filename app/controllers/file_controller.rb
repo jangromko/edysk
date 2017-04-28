@@ -38,8 +38,15 @@ class FileController < ApplicationController
     # the new name is necessary to change the name, innit?
     params.require(:new_name)
 
-    UserFile.find(params[:file_id]).update(name: params[:new_name])
-    render :json => Response.response_ok
+    file = UserFile.find(params[:file_id])
+    file.name = params[:new_name]
+    if file.valid?
+      file.save
+      render :json => Response.response_ok
+    else
+      render :json => {result: :error, errors: file.errors}
+    end
+
   end
 
   def share
@@ -47,8 +54,13 @@ class FileController < ApplicationController
     shared_file = SharedFile.new()
     shared_file.user_file = UserFile.find(params[:file_id])
     shared_file.user = User.find(user_id)
-    shared_file.save!
-    render :json => Response.response_ok
+    if shared_file.valid?
+      shared_file.save
+      render :json => Response.response_ok
+    else
+      render :json => {response: :error, errors: shared_file.errors}
+    end
+
 
   end
 
@@ -56,12 +68,13 @@ class FileController < ApplicationController
     params.require(:dir_id)
     Directory.transaction do
       directory = Directory.find_by_id(params[:dir_id])
-      if directory.nil?
-        render :json => { result: :error, error: "No such a directory"}
-      else
-        file = UserFile.find(params[:file_id])
-        UserFile.find(params[:file_id]).update(directory_id: params[:dir_id])
+      file = UserFile.find(params[:file_id])
+      file.directory = directory
+      if file.valid?
+        file.save
         render :json => Response.response_ok
+      else
+        render :json => {response: :error, errors: file.errors}
       end
     end
   end
