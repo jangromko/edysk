@@ -23,12 +23,28 @@
       <div class="sectionTitle">
         Załóż konto
       </div>
-      <form action="">
-        <input type="text" placeholder="Login" class="inputStandard"/>
+
+      <% if @user.errors.any? %>
+          <div class="errors">
+            <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+          <% end %>
+            </ul>
+          </div>
+          <% end %>
+      <%= form_for @user, url: {action: "registration"}  do |f| %>
+
+          <%= f.text_field :login, class: "inputStandard", placeholder: "Login", required: true %>
+          <%= f.email_field :email, class: "inputStandard", placeholder: "E-mail", required: true%>
+          <%= f.password_field :password, class: "inputStandard", placeholder: "Hasło", required: true, pattern: "^\S{8,}$" %>
+          <%= f.password_field :password_confirmation, class: "inputStandard", placeholder: "Powtórz hasło", required: true,pattern: "^\S{8,}$" %>
+          <%= f.submit "Zarejestruj", class: "buttonDefault mediumDarkRed" %>
+        <!-- <input type="text" placeholder="Login" class="inputStandard"/>
         <input type="password" placeholder="Hasło" class="inputStandard"/>
         <input type="password" placeholder="Powtórz hasło" class="inputStandard"/>
-        <input type="submit" class="buttonDefault mediumDarkRed" value="Zarejestruj"/>
-      </form>
+        <input type="submit" class="buttonDefault mediumDarkRed" value="Zarejestruj"/>-->
+      <% end %>
     </div>
   </div>
 </div>
