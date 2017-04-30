@@ -7,7 +7,7 @@ class PublicController < ApplicationController
       user_params = params.require(:forgotten_password_form).permit(:login, :email)
       form = ForgottenPasswordForm.new user_params
       if form.valid?
-        user = User.find_by_email(user_params[:email])
+        user = User.find_by_email(user_params[:email]) || User.new
         hash = SecureRandom.hex
         if user.login.eql? user_params[:login]
           forgotten_password = ForgottenPassword.new(user: user, hash_pk: hash)

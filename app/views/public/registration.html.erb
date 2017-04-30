@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-<html>
-<title>Rejestracja</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-  body,h1 {font-family: "Raleway", sans-serif}
-  body, html {height: 100%}
-  .bgimg {
-    background-image: url('/background_winter.jpg');
-    min-height: 100%;
-    background-position: center;
-    background-size: cover;
-  }
-</style>
-
-
-<body>
-
+<% content_for :title, "Rejestracja" %>
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
   <div class="w3-display-middle center">
     <div class="frame w3-animate-top">
@@ -40,14 +22,8 @@
           <%= f.password_field :password, class: "inputStandard", placeholder: "Hasło", required: true, pattern: "^\\S{8,}$" %>
           <%= f.password_field :password_confirmation, class: "inputStandard", placeholder: "Powtórz hasło", required: true,pattern: "^\\S{8,}$" %>
           <%= f.submit "Zarejestruj", class: "buttonDefault mediumDarkRed" %>
-        <!-- <input type="text" placeholder="Login" class="inputStandard"/>
-        <input type="password" placeholder="Hasło" class="inputStandard"/>
-        <input type="password" placeholder="Powtórz hasło" class="inputStandard"/>
-        <input type="submit" class="buttonDefault mediumDarkRed" value="Zarejestruj"/>-->
+
       <% end %>
     </div>
   </div>
 </div>
-
-</body>
-</html>
