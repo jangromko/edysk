@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   post 'file/publish'
   get 'registration', to: 'public#registration'
   post 'registration', to: 'public#registration'
+  get 'forgot_password', to: 'public#forgot_password'
+  post 'forgot_password', to: 'public#forgot_password'
   root to: 'public#home'
   get 'drive', to: 'main#drive'
 

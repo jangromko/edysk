@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428222545) do
+ActiveRecord::Schema.define(version: 20170428233622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20170428222545) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "forgotten_passwords", primary_key: "hash", id: :string, force: :cascade do |t|
+  create_table "forgotten_passwords", primary_key: "hash_pk", id: :string, force: :cascade do |t|
     t.integer "user_id", null: false
     t.boolean "used", default: false, null: false
     t.datetime "created_at", null: false
