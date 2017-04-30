@@ -6,8 +6,8 @@ class FileController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def publish
-    hash = SecureRandom.hex
-    UserFile.find(params[:file_id]).update(link: hash)
+    hash = HashHelper.generate_hash
+    UserFile.find(params[:file_id]).update!(link: hash)
     render :json => {
         result: :ok,
         hash: hash
@@ -41,7 +41,7 @@ class FileController < ApplicationController
     file = UserFile.find(params[:file_id])
     file.name = params[:new_name]
     if file.valid?
-      file.save
+      file.save!
       render :json => Response.response_ok
     else
       render :json => {result: :error, errors: file.errors}
@@ -55,7 +55,7 @@ class FileController < ApplicationController
     shared_file.user_file = UserFile.find(params[:file_id])
     shared_file.user = User.find(user_id)
     if shared_file.valid?
-      shared_file.save
+      shared_file.save!
       render :json => Response.response_ok
     else
       render :json => {response: :error, errors: shared_file.errors}
@@ -71,7 +71,7 @@ class FileController < ApplicationController
       file = UserFile.find(params[:file_id])
       file.directory = directory
       if file.valid?
-        file.save
+        file.save!
         render :json => Response.response_ok
       else
         render :json => {response: :error, errors: file.errors}
@@ -81,7 +81,7 @@ class FileController < ApplicationController
 
   def copy
     UserFile.transaction do
-      UserFile.find(params[:file_id]).dup.save
+      UserFile.find(params[:file_id]).dup.save!
       render :json => Response.response_ok
     end
   end
@@ -90,7 +90,7 @@ class FileController < ApplicationController
   end
 
   def unshare
-    UserFile.find(params[:file_id]).update(link: nil)
+    UserFile.find(params[:file_id]).update!(link: nil)
     render :json => Response.response_ok
   end
 
