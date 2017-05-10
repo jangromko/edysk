@@ -1,22 +1,71 @@
 class DirController < ApplicationController
+  before_action :dir_id_param, only: [:move, :remove, :name, :publish, :unshare]
+  skip_before_action :verify_authenticity_token
+
+  def publish
+    directory = Directory.find params[:dir_id]
+    directory.link = HashHelper.generate_hash
+    directory.save!
+    render :json => {result: :ok, hash: directory.link}
+  end
+
   def shared
   end
 
   def move
+    params.require :parent_directory
+    directory = Directory.find params[:dir_id]
+    directory.directory_id = params[:parent_directory]
+    if directory.valid?
+      directory.save!
+      render :json => Response.response_ok
+    else
+      render :json => {result: :error, errors: directory.errors}
+    end
   end
 
   def show
   end
 
   def new
+    directory = Directory.new params.require(:directory).permit(:name, :directory_id)
+    if directory.valid?
+      directory.save!
+      render :json => Response.response_ok
+    else
+      render :json => {result: :error, errors: directory.errors }
+    end
   end
 
   def remove
+    directory = Directory.find(params[:dir_id])
+    if directory.user_files.any?
+      render :json => {result: :error, errors: ["The directory is not empty"]}
+    else
+      directory.destroy!
+      render :json => Response.response_ok
+    end
   end
 
   def name
+    params.require(:new_name)
+    directory = Directory.find(params[:dir_id])
+    directory.name = params[:new_name]
+    if directory.valid?
+      directory.save!
+      render :json => Response.response_ok
+    else
+      render :json => {result: :error, errors: directory.errors}
+    end
   end
 
   def unshare
+    Directory.find(params[:dir_id]).update! link: nil
+    render :json => Response.response_ok
+  end
+
+  private
+  def dir_id_param
+    params.require(:dir_id)
   end
 end
