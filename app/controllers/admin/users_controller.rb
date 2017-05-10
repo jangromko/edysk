@@ -16,6 +16,12 @@ class Admin::UsersController < ApplicationController
   # DELETE /admin/users/1
   # DELETE /admin/users/1.json
   def destroy
+    User.transaction do
+      @admin_user.root_directory_id = nil
+      @admin_user.save
+      @admin_user.directories.destroy_all
+      @admin_user.destroy
+    end
     @admin_user.destroy
     respond_to do |format|
       format.html { redirect_to admin_users_url, notice: 'User was successfully destroyed.' }

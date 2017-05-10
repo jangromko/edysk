@@ -29,9 +29,16 @@ class PublicController < ApplicationController
 
     if request.post?
       @user = User.new(params.require(:user).permit(:login, :password, :password_confirmation, :email))
+
       if @user.valid?
+        User.transaction do
+          @user.save!
+          directory = Directory.new name: "root", user: @user, user_id: @user.id
+          directory.save!
+          @user.root_directory_id = directory.id
+          @user.save!
+        end
         flash[:success] = "Zarejestrowano poprawnie!"
-        @user.save!
         redirect_to "/"
       end
     else
@@ -39,4 +46,5 @@ class PublicController < ApplicationController
     end
 
   end
+
 end

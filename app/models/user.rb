@@ -11,8 +11,9 @@ class User < ApplicationRecord
     user.password = Digest::SHA2.new(512).hexdigest(user.salt + user.password)
     user.password_confirmation = user.password
   end
+  has_one :directory, as: :root_directory, autosave: true
   has_many :user_files
-  has_many :directories
+  has_many :directories, autosave: true
   belongs_to :account_type, optional: true
   has_many :shared_files
   has_many :shared_directories
