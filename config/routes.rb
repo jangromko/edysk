@@ -25,6 +25,14 @@ Rails.application.routes.draw do
   root to: 'public#home'
   get 'drive', to: 'main#drive'
 
+  namespace :admin do
+    resources :users, :account_types
+  end
+
+  get 'users/index', to: 'users#index'
+  get 'users/show', to: 'users#show'
+  get 'account_types/index', to: 'account_types#index'
+ # get 'account_types/show', to: 'account_types#show'
 
   namespace :public do
     get 'public_controller/home'

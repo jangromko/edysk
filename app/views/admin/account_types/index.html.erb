@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Account Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Space</th>
+      <th>Price</th>
+      <th>Created at</th>
+      <th>Updated at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_account_types.each do |admin_account_type| %>
+      <tr>
+        <td><%= admin_account_type.name %></td>
+        <td><%= admin_account_type.space %></td>
+        <td><%= admin_account_type.price %></td>
+        <td><%= admin_account_type.created_at %></td>
+        <td><%= admin_account_type.updated_at %></td>
+
+        <td><%= link_to 'Edit', edit_admin_account_type_path(admin_account_type) %></td>
+        <td><%= link_to 'Destroy', admin_account_type_path(admin_account_type), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Account Type', new_admin_account_type_path %>
