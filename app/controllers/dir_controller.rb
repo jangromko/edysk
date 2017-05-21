@@ -1,5 +1,5 @@
 class DirController < ApplicationController
-  before_action :dir_id_param, only: [:move, :remove, :name, :publish, :unshare]
+  before_action :dir_id_param, only: [:move, :remove, :name, :publish, :unshare, :show]
   skip_before_action :verify_authenticity_token
 
   def publish
@@ -25,6 +25,13 @@ class DirController < ApplicationController
   end
 
   def show
+    directories = Directory.where "directory_id=?", params[:dir_id]
+    files = UserFile.where "directory_id=?", params[:dir_id]
+    render :json => {
+        result: :ok,
+        files: files.as_json(except: [:user_id, :directory_id]),
+        directories: directories.as_json(except: [:user_id, :directory_id])
+    }
   end
 
   def new

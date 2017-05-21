@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'dir/shared/:hash', to: 'dir#shared', hash: /[A-Za-z0-9]\d{32}/
   get 'dir/shared'
   post 'dir/move'
-  get 'dir/show/:id', to: 'dir#show', id: /[0-9]+/
+  get 'dir/show/:dir_id', to: 'dir#show', dir_id: /[0-9]+/
   put 'dir/new'
   delete 'dir/remove'
   post 'dir/name'
