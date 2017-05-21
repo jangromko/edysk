@@ -1,32 +1,64 @@
-<style>
-  .selected{
-    background-color: #00b3ee;
-  }
-</style>
 <div ng-controller="DriveController">
-  <div ng-repeat="directory in path" ng-dblclick="open_directory(directory)" style="display: inline">{{ directory.name }}</div>
-  <table>
-    <tr>
-      <th>Nazwa</th>
-      <th>Ostatnio modyfikowany</th>
+  <div class="path w3-padding">
+    <div ng-repeat="directory in path" ng-dblclick="open_directory(directory)" style="display: inline" class="pathItem">
+      <div class="pathItemSeparator glyphicon glyphicon-menu-right"></div>
+      {{ directory.name }}
+    </div>
+  </div>
+
+  <table class="menuFilesAndFolders">
+    <tr class="menuFilesAndFoldersHeader">
+      <th>
+        <div class="menuFilesAndFoldersText">
+          Nazwa
+        </div>
+      </th>
+      <th class="w3-hide-small">
+        <div class="menuFilesAndFoldersText">
+          Ostatnio modyfikowany
+        </div>
+      </th>
     </tr>
-    <tr ng-repeat="directory in directories" ng-dblclick="open_directory(directory)" ng-class="{ selected: (selected_directories.indexOf(directory.id) != -1)}" ng-click="select_directory(directory.id)">
-      <td>{{ directory.name }}</td>
-      <td>{{ directory.updated_at | date : "dd/MM/yyyy, HH:mm" : "UTC"}}</td>
+    <tr class="menuFilesAndFoldersElement" ng-repeat="directory in directories" ng-dblclick="open_directory(directory)" ng-class="{ selected: (selected_directories.indexOf(directory.id) != -1)}" ng-click="select_directory(directory.id)">
+      <td>
+        <div class="menuFilesAndFoldersText">
+          <div class="filesFoldersIcon glyphicon glyphicon-folder-open"></div>
+          {{ directory.name }}
+        </div>
+      </td>
+      <td class="w3-hide-small">
+        <div class="menuFilesAndFoldersText">
+          {{ directory.updated_at | date : "dd/MM/yyyy, HH:mm" : "UTC"}}
+        </div>
+      </td>
     </tr>
     <tr ng-repeat="file in files" ng-click="select_file(file.id)">
-      <td>{{ file.name }}</td>
-      <td>{{ file.updated_at | date : "dd/MM/yyyy, HH:mm" : "UTC"}}</td>
+      <td>
+        <div class="menuFilesAndFoldersText">
+          <div class="filesFoldersIcon glyphicon glyphicon-file"></div>
+          {{ file.name }}
+        </div>
+      </td>
+      <td class="w3-hide-small">
+        <div class="menuFilesAndFoldersText">
+          {{ file.updated_at | date : "dd/MM/yyyy, HH:mm" : "UTC"}}
+        </div>
+      </td>
     </tr>
-    <tr ng-click="unselect_all()"><td>&nbsp;</td><td>&nbsp;</td></tr>
+    <tr ng-click="unselect_all()">
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
   </table>
 </div>
 
 
 <script>
-    (function(){
-        angular.module('DriveApp',[])
-            .controller('DriveController', ['$scope','$http', function($scope,$http){
+    (function ()
+    {
+        angular.module('DriveApp', [])
+            .controller('DriveController', ['$scope', '$http', function ($scope, $http)
+            {
 
 
                 $scope.directories = [];
@@ -41,51 +73,57 @@
                 }];
 
                 $scope.current_directory = null;
-                $scope.$watch("current_directory", function current_directory_change(new_value, old_value){
-                    if(new_value == null)
+                $scope.$watch("current_directory", function current_directory_change(new_value, old_value)
+                {
+                    if (new_value == null)
                         return;
                     console.log(new_value);
                     var index = $scope.path.indexOf(new_value);
-                    if(index != -1)
+                    if (index != -1)
                     {
-                        $scope.path.length = index+1;
+                        $scope.path.length = index + 1;
                     }
                     else
                     {
                         $scope.path.push(new_value);
                     }
-                    $http.get("/dir/show/"+new_value.id)
-                        .then(function successCallback(response){
+                    $http.get("/dir/show/" + new_value.id)
+                        .then(function successCallback(response)
+                        {
                             $scope.directories = response.data.directories;
                             $scope.files = response.data.files;
-                        }, function(response){});
+                        }, function (response)
+                        {
+                        });
                     $scope.unselect_all();
                 });
 
-                $scope.select_file = function(id)
+                $scope.select_file = function (id)
                 {
                     $scope.selected_files = [id];
                 };
 
-                $scope.select_directory = function(id)
+                $scope.select_directory = function (id)
                 {
                     $scope.selected_directories = [id];
                 };
 
-                $scope.unselect_all = function()
+                $scope.unselect_all = function ()
                 {
                     $scope.selected_files = [];
                     $scope.selected_directories = [];
                 };
 
-                $scope.open_directory = function(directory)
+                $scope.open_directory = function (directory)
                 {
                     $scope.current_directory = directory;
                 };
 
-                this.$onInit = function () {
+                this.$onInit = function ()
+                {
                     $scope.current_directory = $scope.path[0];
                 };
 
-            }])})();
+            }])
+    })();
 </script>

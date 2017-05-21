@@ -1,6 +1,5 @@
 .sidebar
 {
-    margin-top: 70px;
     border-right: 2px solid #BBBBBB;
     padding-left: 20px;
 }
@@ -20,6 +19,11 @@
     width: 50%;
 }
 
+.button30
+{
+    width: 30%;
+}
+
 
 .buttonColor4
 {
@@ -34,3 +38,90 @@
 }
 
 
+.drivePages
+{
+    margin-top: 50px;
+    height: 100%;
+}
+
+.driveContent
+{
+    padding: 20px;
+
+}
+
+.menuFilesAndFolders
+{
+    width: 100%;
+}
+
+.menuFilesAndFoldersHeader
+{
+    border-bottom: 2px solid #555555;
+
+    font-size: 1.5rem;
+}
+
+.menuFilesAndFoldersElement
+{
+    border-bottom: 1px solid #999999;
+
+    font-size: 1.4rem;
+}
+
+.menuFilesAndFoldersElement:hover
+{
+    background-color: #00b9b5;
+    color: #fafffa;
+    border-bottom: 2px solid #00c4c0;
+}
+
+.menuFilesAndFoldersText
+{
+    margin: 10px;
+}
+
+.filesFoldersIcon
+{
+    margin-left: 5px;
+    margin-right: 8px;
+}
+
+.selected
+{
+    background-color: #00a8a4;
+    color: #fafffa;
+    border-bottom: 2px solid #00a8a4;
+}
+
+
+.path
+{
+    background-color: #f9f9f9;
+
+    border: transparent;
+    border-radius: 5px;
+
+    font-size: 1.6rem;
+}
+
+.pathItem
+{
+
+}
+
+.pathItem:hover
+{
+    color: #00a8a4;
+}
+
+
+.pathItemSeparator
+{
+    font-size: 1.4rem;
+}
+
+.menuArrow
+{
+    font-size: 1rem;
+}

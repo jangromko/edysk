@@ -4,7 +4,7 @@
   <title>E-dysk</title>
   <%= csrf_meta_tags %>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,17 +15,33 @@
 </head>
 
 <script>
-    function menuSmall() {
-        var x = document.getElementById("navDemo");
-        if (x.className.indexOf("w3-show") == -1) {
+    function menuSmall()
+    {
+        var x = document.getElementById("navbar");
+        if (x.className.indexOf("w3-show") == -1)
+        {
             x.className += " w3-show";
-        } else {
+        } else
+        {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+
+
+    function driveMenuSmall()
+    {
+        var x = document.getElementById("driveMenu");
+        if (x.className.indexOf("w3-show") == -1)
+        {
+            x.className += " w3-show";
+        } else
+        {
             x.className = x.className.replace(" w3-show", "");
         }
     }
 </script>
 
-<body ng-app="DriveApp" >
+<body ng-app="DriveApp">
 
 <!-- Navbar -->
 <div class="w3-top">
@@ -49,7 +65,7 @@
 </div>
 
 <!-- Navbar on small screens -->
-<div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+<div id="navbar" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-top">
   <a href="" class="w3-bar-item w3-button w3-padding-large">STRONA GŁÓWNA</a>
   <a href="" class="w3-bar-item w3-button w3-padding-large">POMOC</a>
   <a href="" class="w3-bar-item w3-button w3-padding-large">WIĘCEJ MOŻLIWOŚCI</a>
@@ -59,18 +75,50 @@
 </div>
 
 
-<!-- Sidebar/menu -->
-<nav class="sidebar w3-sidebar w3-collapse w3-white" style="z-index:0;width:300px;" id="mySidebar"><br>
-  <div class="w3-bar-block">
-    <button class="buttonStandard button50 buttonColor4">Nowy</button>
-    <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding w3-text-teal w3-hide-small"><i class="glyphicon glyphicon-folder-open w3-margin-right"></i>Mój dysk</a>
-    <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding w3-hide-small"><i class="glyphicon glyphicon-duplicate w3-margin-right"></i>Udostępnione dla mnie</a>
-    <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding w3-hide-small"><i class="fa fa-male fa-fw w3-margin-right"></i>Współpracownicy</a>
-    <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding w3-hide-small"><i class="glyphicon glyphicon-hdd w3-margin-right"></i>Wykorzystanie dysku</a>
-  </div>
-</nav>
+<div class="w3-row drivePages">
 
-<%= yield %>
+  <!-- Sidebar/menu on large and medium screens -->
+  <div class="w3-col m5 l2 w3-hide-small">
+    <nav class="sidebar  w3-white" id="mySidebar"><br>
+      <div class="w3-bar-block">
+        <button class="buttonStandard button50 buttonColor4">Nowy</button>
+        <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding w3-text-teal w3-hide-small"><i class="glyphicon glyphicon-folder-open w3-margin-right"></i>Mój
+          dysk</a>
+        <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding w3-hide-small"><i class="glyphicon glyphicon-duplicate w3-margin-right"></i>Udostępnione
+          dla mnie</a>
+        <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding w3-hide-small"><i class="fa fa-male fa-fw w3-margin-right"></i>Współpracownicy</a>
+        <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding w3-hide-small"><i class="glyphicon glyphicon-hdd w3-margin-right"></i>Wykorzystanie
+          dysku</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Menu replacing sidebar menu on small screens -->
+  <div class="w3-col s12 w3-padding w3-hide-large w3-hide-medium">
+    <button class="buttonStandard button30 buttonColor4">Nowy</button>
+
+    <button class="w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" onclick="driveMenuSmall()" title="Drive options">
+      Dysk
+      <div class="menuArrow glyphicon glyphicon-triangle-bottom"></div>
+    </button>
+
+    <div id="driveMenu" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+      <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding"><i class="glyphicon glyphicon-folder-open w3-margin-right"></i>Mój
+        dysk</a>
+      <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding"><i class="glyphicon glyphicon-duplicate w3-margin-right"></i>Udostępnione
+        dla mnie</a>
+      <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding"><i class="fa fa-male fa-fw w3-margin-right"></i>Współpracownicy</a>
+      <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding"><i class="glyphicon glyphicon-hdd w3-margin-right"></i>Wykorzystanie
+        dysku</a>
+    </div>
+  </div>
+
+  <div class="driveContent w3-col m7 l10">
+    <%= yield %>
+  </div>
+
+</div>
+
 
 </body>
 </html>
