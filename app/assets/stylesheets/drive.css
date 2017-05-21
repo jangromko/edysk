@@ -4,3 +4,33 @@
     border-right: 2px solid #BBBBBB;
     padding-left: 20px;
 }
+
+.buttonStandard
+{
+    border: 0px;
+    border-radius: 2px;
+
+    padding: 10px 10px 10px 10px;
+
+    margin-bottom: 20px;
+}
+
+.button50
+{
+    width: 50%;
+}
+
+
+.buttonColor4
+{
+    color: #eeffee;
+    background-color: #00a8a4;
+}
+
+.buttonColor4:hover
+{
+    color: #ffffff;
+    background-color: #00c4c0;
+}
+
+
