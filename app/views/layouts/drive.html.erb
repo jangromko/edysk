@@ -93,8 +93,97 @@
   <a href="" class="w3-bar-item w3-button w3-padding-large">WYLOGUJ</a>
 </div>
 
+<script>
+    (function ()
+    {
+        angular.module('DriveApp', [])
+            .controller('DriveController', ['$scope', '$http', function ($scope, $http)
+            {
 
-<div class="w3-row drive-pages">
+
+                $scope.directories = [];
+                $scope.files = [];
+
+                $scope.selected_files = [];
+                $scope.selected_directories = [];
+
+                $scope.path = [{
+                    id: <%= @root_directory.id %>,
+                    name: "/"
+                }];
+
+                $scope.new_directory = {name: null, directory_id: -1};
+
+                $scope.create_directory = function()
+                {
+                    console.log($scope.new_directory);
+                    $scope.new_directory.directory_id = $scope.current_directory.id;
+                  $http.put("/dir/new", {directory: $scope.new_directory})
+                    .then(function successCallback(response)
+                    {
+                        $scope.directories.push(response.data.directory);
+                        $scope.new_directory = {name: null, directory_id: -1};
+                        document.getElementById('new-folder-modal').style.display = "none";
+                    }, function (response){});
+                };
+
+                $scope.current_directory = null;
+                $scope.$watch("current_directory", function current_directory_change(new_value, old_value)
+                {
+                    if (new_value == null)
+                        return;
+                    console.log(new_value);
+                    var index = $scope.path.indexOf(new_value);
+                    if (index != -1)
+                    {
+                        $scope.path.length = index + 1;
+                    }
+                    else
+                    {
+                        $scope.path.push(new_value);
+                    }
+                    $http.get("/dir/show/" + new_value.id)
+                        .then(function successCallback(response)
+                        {
+                            $scope.directories = response.data.directories;
+                            $scope.files = response.data.files;
+                        }, function (response)
+                        {
+                        });
+                    $scope.unselect_all();
+                });
+
+                $scope.select_file = function (id)
+                {
+                    $scope.selected_files = [id];
+                };
+
+                $scope.select_directory = function (id)
+                {
+                    $scope.selected_directories = [id];
+                };
+
+                $scope.unselect_all = function ()
+                {
+                    $scope.selected_files = [];
+                    $scope.selected_directories = [];
+                };
+
+                $scope.open_directory = function (directory)
+                {
+                    $scope.current_directory = directory;
+                };
+
+                this.$onInit = function ()
+                {
+                    $scope.current_directory = $scope.path[0];
+                };
+
+            }])
+    })();
+</script>
+
+<div class="w3-row drive-pages" ng-controller="DriveController">
 
   <!-- Sidebar/menu on large and medium screens -->
   <div class="w3-col m5 l2 w3-hide-small">
@@ -108,13 +197,15 @@
         </div>
 
         <div id="new-folder-modal" class="modal">
+          <form ng-submit="create_directory()">
           <div class="modal-content">
             <span class="close">&times;</span>
             <div class="modal-title">Stwórz nowy folder</div>
-            <input class="input-in-modal" type="text" placeholder="Wpisz nazwę nowego katalogu"/>
+            <input class="input-in-modal" type="text" ng-model="new_directory.name" placeholder="Wpisz nazwę nowego katalogu"/>
 
-            <button class="modal-button">OK</button>
+            <button type="submit" class="modal-button">OK</button>
           </div>
+          </form>
         </div>
 
         <script>

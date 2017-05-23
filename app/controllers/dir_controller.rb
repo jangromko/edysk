@@ -36,9 +36,10 @@ class DirController < ApplicationController
 
   def new
     directory = Directory.new params.require(:directory).permit(:name, :directory_id)
+    directory.user_id = user_id
     if directory.valid?
       directory.save!
-      render :json => Response.response_ok
+      render :json => {result: :ok, directory: directory.as_json(except: [:user_id, :directory_id])}
     else
       render :json => {result: :error, errors: directory.errors }
     end
@@ -74,5 +75,8 @@ class DirController < ApplicationController
   private
   def dir_id_param
     params.require(:dir_id)
+  end
+  def user_id
+    User.maximum(:id)
   end
 end

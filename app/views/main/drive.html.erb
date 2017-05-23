@@ -1,4 +1,4 @@
-<div ng-controller="DriveController">
+<div>
   <div class="path w3-padding">
     <div ng-repeat="directory in path" ng-click="open_directory(directory)" style="display: inline">
       <div class="path-item-separator glyphicon glyphicon-menu-right"></div>
@@ -56,77 +56,3 @@
 </div>
 
 
-<script>
-    (function ()
-    {
-        angular.module('DriveApp', [])
-            .controller('DriveController', ['$scope', '$http', function ($scope, $http)
-            {
-
-
-                $scope.directories = [];
-                $scope.files = [];
-
-                $scope.selected_files = [];
-                $scope.selected_directories = [];
-
-                $scope.path = [{
-                    id: <%= @root_directory.id %>,
-                    name: "/"
-                }];
-
-                $scope.current_directory = null;
-                $scope.$watch("current_directory", function current_directory_change(new_value, old_value)
-                {
-                    if (new_value == null)
-                        return;
-                    console.log(new_value);
-                    var index = $scope.path.indexOf(new_value);
-                    if (index != -1)
-                    {
-                        $scope.path.length = index + 1;
-                    }
-                    else
-                    {
-                        $scope.path.push(new_value);
-                    }
-                    $http.get("/dir/show/" + new_value.id)
-                        .then(function successCallback(response)
-                        {
-                            $scope.directories = response.data.directories;
-                            $scope.files = response.data.files;
-                        }, function (response)
-                        {
-                        });
-                    $scope.unselect_all();
-                });
-
-                $scope.select_file = function (id)
-                {
-                    $scope.selected_files = [id];
-                };
-
-                $scope.select_directory = function (id)
-                {
-                    $scope.selected_directories = [id];
-                };
-
-                $scope.unselect_all = function ()
-                {
-                    $scope.selected_files = [];
-                    $scope.selected_directories = [];
-                };
-
-                $scope.open_directory = function (directory)
-                {
-                    $scope.current_directory = directory;
-                };
-
-                this.$onInit = function ()
-                {
-                    $scope.current_directory = $scope.path[0];
-                };
-
-            }])
-    })();
-</script>
