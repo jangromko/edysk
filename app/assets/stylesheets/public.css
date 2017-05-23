@@ -1,4 +1,4 @@
-.inputStandard
+.input-standard
 {
     border: none;
     border-radius: 1px;
@@ -15,7 +15,7 @@
     text-align: center;
 }
 
-.buttonDefault
+.button-default
 {
     border: none;
     border-radius: 1px;
@@ -32,46 +32,46 @@
     transition-duration: 0.4s;
 }
 
-.buttonDefault:hover
+.button-default:hover
 {
     cursor: hand;
 }
 
-.mediumDarkGreen
+.medium-dark-green
 {
     background-color: #108845;
     color: #fafffa;
 }
 
-.mediumDarkGreen:hover
+.medium-dark-green:hover
 {
     background-color: #20aa55;
     color: #fdfffd;
 }
 
-.mediumDarkRed
+.medium-dark-red
 {
     background-color: #aa2020;
     color: #fffafa;
 }
 
-.mediumDarkRed:hover
+.medium-dark-red:hover
 {
     background-color: #bb2020;
     color: #fffdfd;
 }
 
-.loginRegister
+.login-register
 {
     text-align: right;
 }
 
-.noDecoration
+.no-decoration
 {
     text-decoration: none;
 }
 
-.noDecoration:hover
+.no-decoration:hover
 {
     text-decoration: none;
 }
@@ -86,12 +86,12 @@
     color: #000100;
 }
 
-.link1
+.link-1
 {
     font-size: 1rem;
 }
 
-.link1:hover
+.link-1:hover
 {
     font-size: 1.1rem;
 
@@ -113,13 +113,14 @@
     margin-top: 60px;
 }
 
-.sectionTitle
+.section-title
 {
     color: #aa2020;
     margin-bottom: 5%;
     font-size: 2rem;
 }
 
-.errors {
+.errors
+{
     color: #aa2020;
 }

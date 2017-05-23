@@ -1,46 +1,49 @@
 <div ng-controller="DriveController">
   <div class="path w3-padding">
-    <div ng-repeat="directory in path" ng-dblclick="open_directory(directory)" style="display: inline" class="pathItem">
-      <div class="pathItemSeparator glyphicon glyphicon-menu-right"></div>
-      {{ directory.name }}
+    <div ng-repeat="directory in path" ng-click="open_directory(directory)" style="display: inline">
+      <div class="path-item-separator glyphicon glyphicon-menu-right"></div>
+      <button class="path-item">
+        {{ directory.name }}
+      </button>
+
     </div>
   </div>
 
-  <table class="menuFilesAndFolders">
-    <tr class="menuFilesAndFoldersHeader">
+  <table class="menu-files-and-folders">
+    <tr class="menu-files-and-folders-header">
       <th>
-        <div class="menuFilesAndFoldersText">
+        <div class="menu-files-and-folders-text">
           Nazwa
         </div>
       </th>
       <th class="w3-hide-small">
-        <div class="menuFilesAndFoldersText">
+        <div class="menu-files-and-folders-text">
           Ostatnio modyfikowany
         </div>
       </th>
     </tr>
-    <tr class="menuFilesAndFoldersElement" ng-repeat="directory in directories" ng-dblclick="open_directory(directory)" ng-class="{ selected: (selected_directories.indexOf(directory.id) != -1)}" ng-click="select_directory(directory.id)">
+    <tr class="menu-files-and-folders-element" ng-repeat="directory in directories" ng-dblclick="open_directory(directory)" ng-class="{ selected: (selected_directories.indexOf(directory.id) != -1)}" ng-click="select_directory(directory.id)">
       <td>
-        <div class="menuFilesAndFoldersText">
-          <div class="filesFoldersIcon glyphicon glyphicon-folder-open"></div>
+        <div class="menu-files-and-folders-text">
+          <div class="files-folders-icon glyphicon glyphicon-folder-open"></div>
           {{ directory.name }}
         </div>
       </td>
       <td class="w3-hide-small">
-        <div class="menuFilesAndFoldersText">
+        <div class="menu-files-and-folders-text">
           {{ directory.updated_at | date : "dd/MM/yyyy, HH:mm" : "UTC"}}
         </div>
       </td>
     </tr>
     <tr ng-repeat="file in files" ng-click="select_file(file.id)">
       <td>
-        <div class="menuFilesAndFoldersText">
-          <div class="filesFoldersIcon glyphicon glyphicon-file"></div>
+        <div class="menu-files-and-folders-text">
+          <div class="files-folders-icon glyphicon glyphicon-file"></div>
           {{ file.name }}
         </div>
       </td>
       <td class="w3-hide-small">
-        <div class="menuFilesAndFoldersText">
+        <div class="menu-files-and-folders-text">
           {{ file.updated_at | date : "dd/MM/yyyy, HH:mm" : "UTC"}}
         </div>
       </td>

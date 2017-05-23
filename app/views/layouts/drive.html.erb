@@ -30,13 +30,32 @@
 
     function driveMenuSmall()
     {
-        var x = document.getElementById("driveMenu");
-        if (x.className.indexOf("w3-show") == -1)
+        document.getElementById("drive-menu").classList.toggle("show");
+    }
+
+
+    function newFileFolder()
+    {
+        document.getElementById("new-file-folder-selection").classList.toggle("show");
+    }
+
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event)
+    {
+        if (!event.target.matches('.drop-button'))
         {
-            x.className += " w3-show";
-        } else
-        {
-            x.className = x.className.replace(" w3-show", "");
+
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++)
+            {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show'))
+                {
+                    openDropdown.classList.remove('show');
+                }
+            }
         }
     }
 </script>
@@ -47,7 +66,7 @@
 <div class="w3-top">
   <div class="w3-bar w3-white w3-card-2">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="menuSmall()" title="Menu"><i class="fa fa-bars"></i></a>
-    <a href="#" class="black noDecoration w3-bar-item w3-padding-large"><b>E-dysk</b></a>
+    <a href="#" class="black no-decoration w3-bar-item w3-padding-large"><b>E-dysk</b></a>
     <div class="w3-dropdown-hover w3-hide-small">
       <button class="w3-padding-large w3-button" title="More">WIĘCEJ <i class="fa fa-caret-down"></i></button>
       <div class="w3-dropdown-content w3-bar-block w3-card-4">
@@ -56,16 +75,16 @@
         <a href="#" class="w3-bar-item w3-button">POMOC</a>
       </div>
     </div>
-    <div class="loginRegister">
-      <a href="" class="noDecoration w3-right w3-button w3-bar-item w3-padding-large w3-hide-small">WYLOGUJ</a>
-      <a href="" class="noDecoration w3-right w3-button w3-bar-item w3-padding-large w3-hide-small">MOJE KONTO</a>
+    <div class="login-register">
+      <a href="" class="no-decoration w3-right w3-button w3-bar-item w3-padding-large w3-hide-small">WYLOGUJ</a>
+      <a href="" class="no-decoration w3-right w3-button w3-bar-item w3-padding-large w3-hide-small">MOJE KONTO</a>
     </div>
 
   </div>
 </div>
 
 <!-- Navbar on small screens -->
-<div id="navbar" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-top">
+<div id="navbar" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium dropdown-content dropdown-full-screen">
   <a href="" class="w3-bar-item w3-button w3-padding-large">STRONA GŁÓWNA</a>
   <a href="" class="w3-bar-item w3-button w3-padding-large">POMOC</a>
   <a href="" class="w3-bar-item w3-button w3-padding-large">WIĘCEJ MOŻLIWOŚCI</a>
@@ -75,19 +94,64 @@
 </div>
 
 
-<div class="w3-row drivePages">
+<div class="w3-row drive-pages">
 
   <!-- Sidebar/menu on large and medium screens -->
   <div class="w3-col m5 l2 w3-hide-small">
-    <nav class="sidebar  w3-white" id="mySidebar"><br>
+    <nav class="sidebar w3-white"><br>
       <div class="w3-bar-block">
-        <button class="buttonStandard button50 buttonColor4">Nowy</button>
-        <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding w3-text-teal w3-hide-small"><i class="glyphicon glyphicon-folder-open w3-margin-right"></i>Mój
+        <button class="button-standard button-50 button-color-4 drop-button" onclick="newFileFolder()">Nowy</button>
+
+        <div id="new-file-folder-selection" class="file-or-folder-dropdown w3-bar-block w3-hide dropdown-content">
+          <button class="w3-bar-item file-or-folder-dropdown-item">Plik</button>
+          <button class="w3-bar-item file-or-folder-dropdown-item" onclick="showFolderModal()">Folder</button>
+        </div>
+
+        <div id="new-folder-modal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-title">Stwórz nowy folder</div>
+            <input class="input-in-modal" type="text" placeholder="Wpisz nazwę nowego katalogu"/>
+
+            <button class="modal-button">OK</button>
+          </div>
+        </div>
+
+        <script>
+            //Modal – creating new folder
+            var modal = document.getElementById('new-folder-modal');
+            var span = document.getElementsByClassName("close")[0];
+
+            function showFolderModal()
+            {
+                modal.style.display = "block";
+                document.getElementById("new-file-folder-selection").classList.remove("show");
+            }
+
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function ()
+            {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event)
+            {
+                if (event.target == modal)
+                {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+
+
+        <a href="" onclick="" class="sidebar-item no-decoration w3-bar-item w3-padding w3-text-teal w3-hide-small"><i class="glyphicon glyphicon-folder-open w3-margin-right"></i>Mój
           dysk</a>
-        <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding w3-hide-small"><i class="glyphicon glyphicon-duplicate w3-margin-right"></i>Udostępnione
+        <a href="" onclick="" class="sidebar-item no-decoration w3-bar-item w3-padding w3-hide-small"><i class="glyphicon glyphicon-duplicate w3-margin-right"></i>Udostępnione
           dla mnie</a>
-        <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding w3-hide-small"><i class="fa fa-male fa-fw w3-margin-right"></i>Współpracownicy</a>
-        <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding w3-hide-small"><i class="glyphicon glyphicon-hdd w3-margin-right"></i>Wykorzystanie
+        <a href="" onclick="" class="sidebar-item no-decoration w3-bar-item w3-padding w3-hide-small"><i class="fa fa-male fa-fw w3-margin-right"></i>Współpracownicy</a>
+        <a href="" onclick="" class="sidebar-item no-decoration w3-bar-item w3-padding w3-hide-small"><i class="glyphicon glyphicon-hdd w3-margin-right"></i>Wykorzystanie
           dysku</a>
       </div>
     </nav>
@@ -95,25 +159,29 @@
 
   <!-- Menu replacing sidebar menu on small screens -->
   <div class="w3-col s12 w3-padding w3-hide-large w3-hide-medium">
-    <button class="buttonStandard button30 buttonColor4">Nowy</button>
-
-    <button class="w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" onclick="driveMenuSmall()" title="Drive options">
+    <button class="w3-button w3-padding-large w3-hide-medium w3-hide-large w3-left drop-button" onclick="driveMenuSmall()" title="Drive options">
       Dysk
-      <div class="menuArrow glyphicon glyphicon-triangle-bottom"></div>
+      <div class="menu-arrow glyphicon glyphicon-triangle-bottom"></div>
     </button>
 
-    <div id="driveMenu" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-      <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding"><i class="glyphicon glyphicon-folder-open w3-margin-right"></i>Mój
+    <div id="drive-menu" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium dropdown-content">
+      <a href="" onclick="" class="no-decoration w3-bar-item w3-button w3-padding"><i class="glyphicon glyphicon-folder-open w3-margin-right"></i>Mój
         dysk</a>
-      <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding"><i class="glyphicon glyphicon-duplicate w3-margin-right"></i>Udostępnione
+      <a href="" onclick="" class="no-decoration w3-bar-item w3-button w3-padding"><i class="glyphicon glyphicon-duplicate w3-margin-right"></i>Udostępnione
         dla mnie</a>
-      <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding"><i class="fa fa-male fa-fw w3-margin-right"></i>Współpracownicy</a>
-      <a href="" onclick="w3_close()" class="noDecoration w3-bar-item w3-button w3-padding"><i class="glyphicon glyphicon-hdd w3-margin-right"></i>Wykorzystanie
+      <a href="" onclick="" class="no-decoration w3-bar-item w3-button w3-padding"><i class="fa fa-male fa-fw w3-margin-right"></i>Współpracownicy</a>
+      <a href="" onclick="" class="no-decoration w3-bar-item w3-button w3-padding"><i class="glyphicon glyphicon-hdd w3-margin-right"></i>Wykorzystanie
         dysku</a>
     </div>
+
+
+    <button class="button-standard button-color-4 w3-right button-circle-40"><i class="fa fa-file"></i></button>
+    <button class="button-standard button-color-4 w3-right w3-margin-right button-circle-40">
+      <i class="fa fa-folder-open"></i></button>
+
   </div>
 
-  <div class="driveContent w3-col m7 l10">
+  <div class="drive-content w3-col m7 l10">
     <%= yield %>
   </div>
 

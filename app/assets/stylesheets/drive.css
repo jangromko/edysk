@@ -4,84 +4,150 @@
     padding-left: 20px;
 }
 
-.buttonStandard
+.sidebar-item
 {
-    border: 0px;
+    color: #000100;
+    margin-top: 8px;
+
+    transition: 500ms;
+}
+
+.sidebar-item:hover
+{
+    color: #003a7f;
+
+    transition: 400ms;
+}
+
+.drop-button
+{
+
+}
+
+.dropdown-content
+{
+    display: none;
+    position: absolute;
+    z-index: 1;
+    overflow: auto;
+    box-shadow: 0 8px 16px 0 #555555;
+}
+
+.dropdown-full-screen
+{
+    width: 100%;
+}
+
+
+.file-or-folder-dropdown
+{
+    min-width: 180px;
+}
+
+.file-or-folder-dropdown-item
+{
+    background-color: #fefffe;
+}
+
+.file-or-folder-dropdown-item:hover
+{
+    background-color: #f8f8f8;
+    color: #003a7f;
+}
+
+.button-standard
+{
+    border: 0;
     border-radius: 2px;
 
     padding: 10px 10px 10px 10px;
-
-    margin-bottom: 20px;
 }
 
-.button50
+.button-50
 {
     width: 50%;
 }
 
-.button30
+.button-30
 {
     width: 30%;
 }
 
+.button-circle-40
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
 
-.buttonColor4
+
+.button-color-4
 {
     color: #eeffee;
     background-color: #00a8a4;
+
+    transition: 500ms;
 }
 
-.buttonColor4:hover
+.button-color-4:hover
 {
     color: #ffffff;
     background-color: #00c4c0;
+
+    transition: 500ms;
 }
 
 
-.drivePages
+.drive-pages
 {
     margin-top: 50px;
     height: 100%;
 }
 
-.driveContent
+.drive-content
 {
     padding: 20px;
 
 }
 
-.menuFilesAndFolders
+.menu-files-and-folders
 {
     width: 100%;
 }
 
-.menuFilesAndFoldersHeader
+.menu-files-and-folders-header
 {
     border-bottom: 2px solid #555555;
 
     font-size: 1.5rem;
 }
 
-.menuFilesAndFoldersElement
+.menu-files-and-folders-element
 {
     border-bottom: 1px solid #999999;
 
     font-size: 1.4rem;
+
+    cursor: default;
+
+    transition: 100ms;
 }
 
-.menuFilesAndFoldersElement:hover
+.menu-files-and-folders-element:hover
 {
     background-color: #00b9b5;
     color: #fafffa;
     border-bottom: 2px solid #00c4c0;
+
+    transition: 100ms;
 }
 
-.menuFilesAndFoldersText
+.menu-files-and-folders-text
 {
     margin: 10px;
 }
 
-.filesFoldersIcon
+.files-folders-icon
 {
     margin-left: 5px;
     margin-right: 8px;
@@ -97,31 +163,119 @@
 
 .path
 {
-    background-color: #f9f9f9;
-
     border: transparent;
     border-radius: 5px;
 
     font-size: 1.6rem;
 }
 
-.pathItem
+.path-item
 {
+    cursor: hand;
 
+    border: none;
+    border-radius: 8px;
+
+    padding: 6px 12px;
+
+    background-color: #fefffe;
+
+    transition: 100ms;
 }
 
-.pathItem:hover
+.path-item:hover
 {
-    color: #00a8a4;
+    background-color: #00a8a4;
+    color: #fafffa;
+
+    transition: 100ms;
 }
 
 
-.pathItemSeparator
+.path-item-separator
 {
     font-size: 1.4rem;
 }
 
-.menuArrow
+.menu-arrow
 {
     font-size: 1rem;
+}
+
+
+.modal
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 200px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(255,255,255,0.8);
+}
+
+
+.modal-content
+{
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}
+
+
+.input-in-modal
+{
+    border: 1px solid #00a8a4;
+    border-radius: 3px;
+    background-color: #fefffe;
+
+    padding: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    width: 80%;
+}
+
+.modal-title
+{
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.modal-button
+{
+    border: none;
+
+    color: #00a8a4;
+    background-color: transparent;
+
+    padding: 10px;
+
+    transition: 100ms;
+}
+
+.modal-button:hover
+{
+    color: #003a7f;
+    transition: 100ms;
+}
+
+.close
+{
+    color: #888888;
+    float: right;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus
+{
+    color: #000100;
+    text-decoration: none;
+    cursor: pointer;
 }
