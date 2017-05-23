@@ -41,20 +41,15 @@
 
 
     // Close the dropdown if the user clicks outside of it
-    window.onclick = function (event)
+    document.onclick = function (event)
     {
         if (!event.target.matches('.drop-button'))
         {
+            var y = document.getElementById("new-file-folder-selection");
 
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++)
+            if (y.classList.contains("show"))
             {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show'))
-                {
-                    openDropdown.classList.remove('show');
-                }
+                y.classList.remove("show");
             }
         }
     }
