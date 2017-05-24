@@ -53,6 +53,13 @@
             }
         }
     }
+
+
+    //Show file dialog
+    function fileDialog()
+    {
+        document.getElementById("file-dialog").click();
+    }
 </script>
 
 <body ng-app="DriveApp">
@@ -187,9 +194,11 @@
         <button class="button-standard button-50 button-color-4 drop-button" onclick="newFileFolder()">Nowy</button>
 
         <div id="new-file-folder-selection" class="file-or-folder-dropdown w3-bar-block w3-hide dropdown-content">
-          <button class="w3-bar-item file-or-folder-dropdown-item">Plik</button>
+          <button class="w3-bar-item file-or-folder-dropdown-item" onclick="fileDialog()">Plik</button>
           <button class="w3-bar-item file-or-folder-dropdown-item" onclick="showFolderModal()">Folder</button>
         </div>
+
+        <input id="file-dialog" type="file" style="display: none"/>
 
         <div id="new-folder-modal" class="modal">
           <form ng-submit="create_directory()">
