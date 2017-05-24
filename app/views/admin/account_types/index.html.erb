@@ -1,15 +1,22 @@
 <p id="notice"><%= notice %></p>
+<div id="content">
+  <div class="w3-display-container w3-animate-opacity">
 
-<h1>Admin Account Types</h1>
+    <div class="w3-display-middle center">
+      <div class="sectionTitleAdmin">
+        Rodzaje kont
+      </div>
 
-<table>
+      <% if @admin_account_types.to_a.any?  %>
+<table class="table responsive striped bordered hoverable">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Space</th>
-      <th>Price</th>
-      <th>Created at</th>
-      <th>Updated at</th>
+      <th>Nazwa</th>
+      <th>Przestrzeń</th>
+      <th>Cena</th>
+      <th>Utworzono</th>
+      <th>Uaktualniono</th>
+      <th></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -29,7 +36,10 @@
     <% end %>
   </tbody>
 </table>
+          <% end %>
+      <div class="button-standard button-50 button-color-4 drop-button"><%= link_to 'Utwórz nowe konto', new_admin_account_type_path%></div>
+    </div>
+  </div>
 
 <br>
-
-<%= link_to 'New Admin Account Type', new_admin_account_type_path %>
+</div>

@@ -1,0 +1,145 @@
+.inputStandard
+{
+    border: none;
+    border-radius: 1px;
+
+    margin-bottom: 20px;
+    padding: 8px;
+
+    width: 80%;
+    min-width: 190px;
+}
+
+#content{
+    position: absolute;
+    width: 80%;
+}
+.center
+{
+    text-align: center;
+}
+
+.buttonDefault
+{
+    border: none;
+    border-radius: 1px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+
+    width: 80%;
+    min-width: 120px;
+
+
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.buttonDefault:hover
+{
+    cursor: hand;
+}
+
+.noDecoration
+{
+    text-decoration: none;
+}
+
+.noDecoration:hover
+{
+    text-decoration: none;
+}
+
+.black
+{
+    color: #000100;
+}
+
+.black:hover
+{
+    color: #000100;
+}
+
+.link1
+{
+    font-size: 1rem;
+}
+
+.link1:hover
+{
+    font-size: 1.1rem;
+
+    -webkit-transition-duration: 0.15s; /* Safari */
+    transition-duration: 0.15s;
+}
+
+
+.sectionTitleAdmin
+{
+    color: #416daa;
+    margin-bottom: 2rem;
+    margin-top: 30rem;
+    font-size: 2rem;
+}
+
+.table,.table-all{
+    border-collapse:collapse;
+    border-spacing:0;
+    width:100%;
+    display:table
+}
+
+.table-all{
+    border:1px solid #ccc
+}
+
+.bordered tr,.table-all tr{
+    border-bottom:1px solid #ddd
+}
+
+.striped tbody tr:nth-child(even){
+    background-color:#f1f1f1
+}
+
+.table-all tr:nth-child(odd){
+    background-color:#fff
+}
+
+.table-all tr:nth-child(even){
+    background-color:#f1f1f1
+}
+
+.hoverable tbody tr:hover,
+ul.hoverable li:hover{
+    background-color: #07c3e3;
+}
+
+.w3-centered tr th,.centered tr td{
+    text-align:center
+}
+
+.table td,.table th,.table-all td,.table-all th{
+    padding:8px 8px;
+    display:table-cell;
+    text-align:left;
+    vertical-align:top
+}
+
+.table th:first-child,.table td:first-child,.table-all th:first-child,.table-all td:first-child{
+    padding-left:16px
+}
+
+
+.table td, .table th, .table-all td, .table-all th{
+    text-align: center;
+}
+
+.tableHeader{
+    color: #ffffff;
+    background-color: #416daa;
+}
+
+.errors {
+    color: #aa2020;
+}

@@ -1,32 +1,40 @@
-<p id="notice"><%= notice %></p>
+<div id="content">
+  <div class="w3-display-container w3-animate-opacity">
 
-</br>
-</br>
-<h1>Użytkownicy</h1>
+    <div class="w3-display-middle center">
+      <div class="sectionTitleAdmin">
+        Użytkownicy
+      </div>
 
-<% if @admin_users.any? %>
-<table>
-  <thead>
-    <tr>
-      <th>Login</th>
-      <th>Email</th>
-      <th>Założony</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @admin_users.each do |admin_user| %>
-      <tr>
-        <td><%= admin_user.login %></td>
-        <td><%= admin_user.email %></td>
-        <td><%= admin_user.created_at %></td>
+      <% if @admin_users.any? %>
+          <table class="table responsive striped bordered hoverable">
 
-        <td><%= link_to 'Usuń', admin_user_path(admin_user), method: :delete, data: { confirm: 'Jesteś pewien?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-    <% else %>
-    Brak użytkowników
-    <% end %>
+            <thead class="tableHeader">
+            <tr>
+              <th>Login</th>
+              <th>Email</th>
+              <th>Założony</th>
+              <th colspan="4"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @admin_users.each do |admin_user| %>
+                <tr>
+                  <td><%= admin_user.login %></td>
+                  <td><%= admin_user.email %></td>
+                  <td><%= admin_user.created_at %></td>
+
+                  <td><%= link_to 'Usuń', admin_user_path(admin_user), method: :delete, data: {confirm: 'Jesteś pewien?'} %></td>
+                </tr>
+            <% end %>
+            </tbody>
+
+      <% else %>
+          Brak użytkowników
+      <% end %>
+      </table>
+    </div>
+  </div>
+</div>

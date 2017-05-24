@@ -19,6 +19,7 @@ class Admin::AccountTypesController < ApplicationController
 
   # GET /admin/account_types/1/edit
   def edit
+    @admin_account_type = AccountType.find(params[:id])
   end
 
   # POST /admin/account_types
@@ -28,7 +29,7 @@ class Admin::AccountTypesController < ApplicationController
 
     respond_to do |format|
       if @admin_account_type.save
-        format.html { redirect_to @admin_account_type, notice: 'Account type was successfully created.' }
+        format.html { redirect_to admin_account_types_url, notice: 'Account type was successfully created.' }
         format.json { render :show, status: :created, location: @admin_account_type }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class Admin::AccountTypesController < ApplicationController
   def update
     respond_to do |format|
       if @admin_account_type.update(admin_account_type_params)
-        format.html { redirect_to @admin_account_type, notice: 'Account type was successfully updated.' }
+        format.html { redirect_to admin_account_types_url, notice: 'Account type was successfully updated.' }
         format.json { render :show, status: :ok, location: @admin_account_type }
       else
         format.html { render :edit }
@@ -69,6 +70,6 @@ class Admin::AccountTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_account_type_params
-      params.require(:admin_account_type).permit(:name, :space, :price, :created_at, :updated_at)
+      params.require(:admin_account_type).permit(:name, :space, :price)
     end
 end
