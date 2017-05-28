@@ -1,6 +1,6 @@
 class Admin::AccountTypesController < ApplicationController
   before_action :set_admin_account_type, only: [:show, :edit, :update, :destroy]
-
+  layout 'admin'
   # GET /admin/account_types
   # GET /admin/account_types.json
   def index

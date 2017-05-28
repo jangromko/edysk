@@ -16,7 +16,6 @@
       <th>Cena</th>
       <th>Utworzono</th>
       <th>Uaktualniono</th>
-      <th></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -30,14 +29,17 @@
         <td><%= admin_account_type.created_at %></td>
         <td><%= admin_account_type.updated_at %></td>
 
-        <td><%= link_to 'Edit', edit_admin_account_type_path(admin_account_type) %></td>
-        <td><%= link_to 'Destroy', admin_account_type_path(admin_account_type), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edycja', edit_admin_account_type_path(admin_account_type) %></td>
+        <td><%= link_to 'Usuń', admin_account_type_path(admin_account_type), method: :delete, data: { confirm: 'Czy napewno usunąć?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
           <% end %>
-      <div class="button-standard button-50 button-color-4 drop-button"><%= link_to 'Utwórz nowe konto', new_admin_account_type_path%></div>
+    </br>
+      <div>
+        <%= link_to 'Utwórz nowe konto', new_admin_account_type_path, class: "buttonNew"%>
+      </div>
     </div>
   </div>
 
