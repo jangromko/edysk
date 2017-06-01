@@ -15,40 +15,32 @@
 </head>
 
 <script>
-    function menuSmall()
-    {
+    function menuSmall() {
         var x = document.getElementById("navbar");
-        if (x.className.indexOf("w3-show") == -1)
-        {
+        if (x.className.indexOf("w3-show") == -1) {
             x.className += " w3-show";
-        } else
-        {
+        } else {
             x.className = x.className.replace(" w3-show", "");
         }
     }
 
 
-    function driveMenuSmall()
-    {
+    function driveMenuSmall() {
         document.getElementById("drive-menu").classList.toggle("show");
     }
 
 
-    function newFileFolder()
-    {
+    function newFileFolder() {
         document.getElementById("new-file-folder-selection").classList.toggle("show");
     }
 
 
     // Close the dropdown if the user clicks outside of it
-    document.onclick = function (event)
-    {
-        if (!event.target.matches('.drop-button'))
-        {
+    document.onclick = function (event) {
+        if (!event.target.matches('.drop-button')) {
             var y = document.getElementById("new-file-folder-selection");
 
-            if (y.classList.contains("show"))
-            {
+            if (y.classList.contains("show")) {
                 y.classList.remove("show");
             }
         }
@@ -56,8 +48,7 @@
 
 
     //Show file dialog
-    function fileDialog()
-    {
+    function fileDialog() {
         document.getElementById("file-dialog").click();
     }
 </script>
@@ -96,11 +87,9 @@
 </div>
 
 <script>
-    (function ()
-    {
+    (function () {
         angular.module('DriveApp', [])
-            .controller('DriveController', ['$scope', '$http', function ($scope, $http)
-            {
+            .controller('DriveController', ['$scope', '$http', function ($scope, $http) {
 
 
                 $scope.directories = [];
@@ -116,68 +105,58 @@
 
                 $scope.new_directory = {name: null, directory_id: -1};
 
-                $scope.create_directory = function()
-                {
+                $scope.create_directory = function () {
                     console.log($scope.new_directory);
                     $scope.new_directory.directory_id = $scope.current_directory.id;
-                  $http.put("/dir/new", {directory: $scope.new_directory})
-                    .then(function successCallback(response)
-                    {
-                        $scope.directories.push(response.data.directory);
-                        $scope.new_directory = {name: null, directory_id: -1};
-                        document.getElementById('new-folder-modal').style.display = "none";
-                    }, function (response){});
+                    $http.put("/dir/new", {directory: $scope.new_directory})
+                        .then(function successCallback(response) {
+                            $scope.directories.push(response.data.directory);
+                            $scope.new_directory = {name: null, directory_id: -1};
+                            document.getElementById('new-folder-modal').style.display = "none";
+                        }, function (response) {
+                        });
                 };
 
                 $scope.current_directory = null;
-                $scope.$watch("current_directory", function current_directory_change(new_value, old_value)
-                {
+                $scope.$watch("current_directory", function current_directory_change(new_value, old_value) {
                     if (new_value == null)
                         return;
-                    console.log(new_value);
                     var index = $scope.path.indexOf(new_value);
-                    if (index != -1)
-                    {
+                    if (index != -1) {
                         $scope.path.length = index + 1;
                     }
-                    else
-                    {
+                    else {
                         $scope.path.push(new_value);
                     }
                     $http.get("/dir/show/" + new_value.id)
-                        .then(function successCallback(response)
-                        {
+                        .then(function successCallback(response) {
                             $scope.directories = response.data.directories;
                             $scope.files = response.data.files;
-                        }, function (response)
-                        {
+                        }, function (response) {
                         });
                     $scope.unselect_all();
                 });
 
-                $scope.select_file = function (id)
-                {
+                $scope.select_file = function (id) {
+                    $scope.unselect_all();
                     $scope.selected_files = [id];
                 };
 
-                $scope.select_directory = function (id)
-                {
+                $scope.select_directory = function (id) {
+                    $scope.unselect_all();
                     $scope.selected_directories = [id];
                 };
 
-                $scope.unselect_all = function ()
-                {
+                $scope.unselect_all = function () {
                     $scope.selected_files = [];
                     $scope.selected_directories = [];
                 };
 
-                $scope.open_directory = function (directory)
-                {
+                $scope.open_directory = function (directory) {
                     $scope.current_directory = directory;
                 };
 
-                this.$onInit = function ()
-                {
+                this.$onInit = function () {
                     $scope.current_directory = $scope.path[0];
                 };
 
@@ -202,13 +181,13 @@
 
         <div id="new-folder-modal" class="modal">
           <form ng-submit="create_directory()">
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="modal-title">Stwórz nowy folder</div>
-            <input class="input-in-modal" type="text" ng-model="new_directory.name" placeholder="Wpisz nazwę nowego katalogu"/>
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <div class="modal-title">Stwórz nowy folder</div>
+              <input class="input-in-modal" type="text" ng-model="new_directory.name" placeholder="Wpisz nazwę nowego katalogu"/>
 
-            <button type="submit" class="modal-button">OK</button>
-          </div>
+              <button type="submit" class="modal-button">OK</button>
+            </div>
           </form>
         </div>
 
@@ -217,24 +196,20 @@
             var modal = document.getElementById('new-folder-modal');
             var span = document.getElementsByClassName("close")[0];
 
-            function showFolderModal()
-            {
+            function showFolderModal() {
                 modal.style.display = "block";
                 document.getElementById("new-file-folder-selection").classList.remove("show");
             }
 
 
             // When the user clicks on <span> (x), close the modal
-            span.onclick = function ()
-            {
+            span.onclick = function () {
                 modal.style.display = "none";
             }
 
             // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function (event)
-            {
-                if (event.target == modal)
-                {
+            window.onclick = function (event) {
+                if (event.target == modal) {
                     modal.style.display = "none";
                 }
             }

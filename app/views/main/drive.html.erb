@@ -35,7 +35,7 @@
         </div>
       </td>
     </tr>
-    <tr ng-repeat="file in files" ng-click="select_file(file.id)">
+    <tr ng-repeat="file in files" ng-click="select_file(file.id)" ng-class="{ selected: (selected_files.indexOf(file.id) != -1)}">
       <td>
         <div class="menu-files-and-folders-text">
           <div class="files-folders-icon glyphicon glyphicon-file"></div>

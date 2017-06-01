@@ -87,6 +87,9 @@ class FileController < ApplicationController
   end
 
   def upload
+    file = UserFile.new(params.require(:file).permit(:name, :directory_id, :file))
+    file.user_id = user_id
+    file.save!
   end
 
   def unshare
@@ -100,6 +103,6 @@ class FileController < ApplicationController
 
   private
   def user_id
-    1
+    11
   end
 end
