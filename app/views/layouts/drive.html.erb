@@ -88,10 +88,16 @@
 
 <script>
     (function () {
-        angular.module('DriveApp', [])
-            .controller('DriveController', ['$scope', '$http', function ($scope, $http) {
+        angular.module('DriveApp', ['cfp.hotkeys'])
+            .controller('DriveController', ['$scope', '$http', 'hotkeys', function ($scope, $http, hotkeys) {
 
-
+                hotkeys.bindTo($scope)
+                    .add({
+                        combo: 'ctrl+a',
+                        callback: function(event, hotkey){
+                            $scope.select_all();
+                        }
+                    });
                 $scope.directories = [];
                 $scope.files = [];
 
@@ -100,13 +106,12 @@
 
                 $scope.path = [{
                     id: <%= @root_directory.id %>,
-                    name: "/"
+                    name: "Mój dysk"
                 }];
 
                 $scope.new_directory = {name: null, directory_id: -1};
 
                 $scope.create_directory = function () {
-                    console.log($scope.new_directory);
                     $scope.new_directory.directory_id = $scope.current_directory.id;
                     $http.put("/dir/new", {directory: $scope.new_directory})
                         .then(function successCallback(response) {
@@ -115,6 +120,18 @@
                             document.getElementById('new-folder-modal').style.display = "none";
                         }, function (response) {
                         });
+                };
+
+                $scope.select_all = function()
+                {
+                    $scope.unselect_all();
+                    $scope.selected_directories = $scope.directories.map(function(directory){
+                       return directory.id;
+                    });
+                    $scope.selected_files = $scope.files.map(function(file){
+                        return file.id;
+                    });
+                    console.log($scope.selected_files);
                 };
 
                 $scope.current_directory = null;
@@ -137,14 +154,45 @@
                     $scope.unselect_all();
                 });
 
-                $scope.select_file = function (id) {
-                    $scope.unselect_all();
-                    $scope.selected_files = [id];
+                $scope.select_file = function (event, id) {
+                    if(event.ctrlKey)
+                    {
+                        var index = $scope.selected_files.indexOf(id);
+                        if(index != -1)
+                        {
+                            $scope.selected_files.splice(index,1);
+                        }
+                        else
+                        {
+                            $scope.selected_files.push(id);
+                        }
+                    }
+                    else
+                    {
+                        $scope.unselect_all();
+                        $scope.selected_files = [id];
+                    }
+
                 };
 
-                $scope.select_directory = function (id) {
-                    $scope.unselect_all();
-                    $scope.selected_directories = [id];
+                $scope.select_directory = function (event, id) {
+                    if(event.ctrlKey)
+                    {
+                        var index = $scope.selected_directories.indexOf(id);
+                        if(index != -1)
+                        {
+                            $scope.selected_directories.splice(index, 1);
+                        }
+                        else
+                        {
+                            $scope.selected_directories.push(id);
+                        }
+                    }
+                    else
+                    {
+                        $scope.unselect_all();
+                        $scope.selected_directories = [id];
+                    }
                 };
 
                 $scope.unselect_all = function () {

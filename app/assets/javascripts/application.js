@@ -13,4 +13,5 @@
 //= require react
 //= require rails-ujs
 //= require turbolinks
+//= require angular-hotkeys
 //= require_tree .
