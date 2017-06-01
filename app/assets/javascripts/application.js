@@ -14,4 +14,5 @@
 //= require rails-ujs
 //= require turbolinks
 //= require angular-hotkeys
+//= require angular-ui-validate
 //= require_tree .

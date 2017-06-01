@@ -4,6 +4,7 @@
   <title>E-dysk</title>
   <%= csrf_meta_tags %>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.js"></script>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
@@ -88,7 +89,7 @@
 
 <script>
     (function () {
-        angular.module('DriveApp', ['cfp.hotkeys'])
+        angular.module('DriveApp', ['cfp.hotkeys', 'ui.validate'])
             .controller('DriveController', ['$scope', '$http', 'hotkeys', function ($scope, $http, hotkeys) {
 
                 hotkeys.bindTo($scope)
@@ -208,6 +209,13 @@
                     $scope.current_directory = $scope.path[0];
                 };
 
+                $scope.name_exists = function (value) {
+                    console.log(value);
+                        return $scope.directories.map(function(directory){
+                           return directory.name
+                        }).indexOf(value) == -1;
+                    };
+
             }])
     })();
 </script>
@@ -228,13 +236,13 @@
         <input id="file-dialog" type="file" style="display: none"/>
 
         <div id="new-folder-modal" class="modal">
-          <form ng-submit="create_directory()">
+          <form name="new_folder_form" ng-submit="new_folder_form.$valid && create_directory()">
             <div class="modal-content">
               <span class="close">&times;</span>
               <div class="modal-title">Stwórz nowy folder</div>
-              <input class="input-in-modal" type="text" ng-model="new_directory.name" placeholder="Wpisz nazwę nowego katalogu"/>
-
+              <input class="input-in-modal" type="text" ui-validate="{name_exist: 'name_exists($value)'}" ng-model="new_directory.name" placeholder="Wpisz nazwę nowego katalogu"/>
               <button type="submit" class="modal-button">OK</button>
+              <div class="error" ng-show="!new_folder_form.$valid">Niepoprawna nazwa!</div>
             </div>
           </form>
         </div>
