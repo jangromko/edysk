@@ -2,7 +2,7 @@ require 'json'
 require 'securerandom'
 class FileController < ApplicationController
   #if you want to change a file, you need to have its id
-  before_action :file_id_param, only:  [:name, :move, :copy,:remove, :unshare, :publish]
+  before_action :file_id_param, only:  [:name, :move, :copy,:remove, :unshare, :publish, :download]
   skip_before_action :verify_authenticity_token
 
   def publish
@@ -15,6 +15,15 @@ class FileController < ApplicationController
   end
 
   def download
+    file = UserFile.find params[:file_id]
+    send_file file.file.current_path,
+              filename: file.name
+  end
+
+  def shared_file
+    file = UserFile.find_by_link(params.require(:hash))
+    send_file file.file.current_path,
+              filename: file.name
   end
 
   def shared

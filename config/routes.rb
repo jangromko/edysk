@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   post 'dir/name'
   post 'dir/unshare'
 
-  get 'file/download/:id', id: /[0-9]+/, to: 'file#download'
+  get 'file/download/:file_id', file_id: /[0-9]+/, to: 'file#download'
+  get 'file/shared/:hash', hash: /[A-Za-z0-9]+/, to: 'file#shared_file'
   get 'file/shared'
-  get 'file/shared/:hash', hash: /[A-Za-z0-9]\d{32}/, to: 'file#shared'
   delete 'file/remove'
   post 'file/name'
   post 'file/share'
