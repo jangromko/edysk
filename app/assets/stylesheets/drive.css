@@ -10,6 +10,8 @@ body {
 {
     border-right: 2px solid #BBBBBB;
     padding-left: 20px;
+
+    height: 100% !important;
 }
 
 .sidebar-item
@@ -69,6 +71,7 @@ body {
     border-radius: 2px;
 
     padding: 10px 10px 10px 10px;
+    margin: 10px;
 }
 
 .button-50
@@ -79,6 +82,11 @@ body {
 .button-30
 {
     width: 30%;
+}
+
+.button-80px
+{
+    width: 80px;
 }
 
 .button-circle-40
@@ -95,6 +103,20 @@ body {
     background-color: #00a8a4;
 
     transition: 500ms;
+}
+
+.button-standard:disabled
+{
+    color: #bbbbbb;
+    background-color: #eeeeee;
+    transition: 0ms;
+}
+
+.button-standard:disabled:hover
+{
+    color: #bbbbbb;
+    background-color: #eeeeee;
+    transition: 0ms;
 }
 
 .button-color-4:hover
@@ -141,14 +163,6 @@ body {
     transition: 100ms;
 }
 
-.menu-files-and-folders-element:hover
-{
-    background-color: #00b9b5;
-    color: #fafffa;
-    border-bottom: 2px solid #00c4c0;
-
-    transition: 100ms;
-}
 
 .menu-files-and-folders-text
 {
