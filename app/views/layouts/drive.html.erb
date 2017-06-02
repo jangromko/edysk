@@ -247,7 +247,11 @@
                             });
                         }
                     }
-                }
+                };
+
+                $scope.download_file = function(id){
+                    window.location.href="/file/download/"+id;
+                };
             }])
     })();
 </script>

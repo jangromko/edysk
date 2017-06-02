@@ -49,7 +49,6 @@ class DirController < ApplicationController
 
   def remove
     directory = Directory.find(params[:dir_id])
-    puts directory.inspect
     if directory.user_files.any? || directory.directories.any?
       render :json => {result: :error, errors: ["The directory is not empty"]},
              :status => 400

@@ -35,7 +35,7 @@
         </div>
       </td>
     </tr>
-    <tr class="menu-files-and-folders-element" ng-repeat="file in files" ng-click="select_file($event, file.id)" ng-class="{ selected: (selected_files.indexOf(file.id) != -1)}">
+    <tr class="menu-files-and-folders-element" ng-repeat="file in files" ng-dblclick="download_file(file.id)" ng-click="select_file($event, file.id)" ng-class="{ selected: (selected_files.indexOf(file.id) != -1)}">
       <td>
         <div class="menu-files-and-folders-text">
           <div class="files-folders-icon glyphicon glyphicon-file"></div>
