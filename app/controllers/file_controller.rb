@@ -112,6 +112,6 @@ class FileController < ApplicationController
 
   private
   def user_id
-    11
+    User.maximum(:id)
   end
 end

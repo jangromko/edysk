@@ -20,7 +20,8 @@ class DirController < ApplicationController
       directory.save!
       render :json => Response.response_ok
     else
-      render :json => {result: :error, errors: directory.errors}
+      render :json => {result: :error, errors: directory.errors},
+             :status => 400
     end
   end
 
@@ -41,14 +42,17 @@ class DirController < ApplicationController
       directory.save!
       render :json => {result: :ok, directory: directory.as_json(except: [:user_id, :directory_id])}
     else
-      render :json => {result: :error, errors: directory.errors }
+      render :json => {result: :error, errors: directory.errors },
+             :status => 400
     end
   end
 
   def remove
     directory = Directory.find(params[:dir_id])
-    if directory.user_files.any?
-      render :json => {result: :error, errors: ["The directory is not empty"]}
+    puts directory.inspect
+    if directory.user_files.any? || directory.directories.any?
+      render :json => {result: :error, errors: ["The directory is not empty"]},
+             :status => 400
     else
       directory.destroy!
       render :json => Response.response_ok
@@ -63,7 +67,8 @@ class DirController < ApplicationController
       directory.save!
       render :json => Response.response_ok
     else
-      render :json => {result: :error, errors: directory.errors}
+      render :json => {result: :error, errors: directory.errors},
+             :status => 400
     end
   end
 

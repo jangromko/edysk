@@ -54,7 +54,7 @@
     }
 </script>
 
-<body ng-app="DriveApp">
+<body ng-app="DriveApp" ng-keypress="key_pressed($event)" ng-controller="DriveController">
 
 <!-- Navbar -->
 <div class="w3-top">
@@ -210,17 +210,49 @@
                 };
 
                 $scope.name_exists = function (value) {
-                    console.log(value);
                         return $scope.directories.map(function(directory){
                            return directory.name
                         }).indexOf(value) == -1;
                     };
 
+                $scope.key_pressed = function(event){
+                    var code = event.key;
+                    if(code == "d")
+                    {
+                        if($scope.selected_directories.length != 0 || $scope.selected_files.length != 0)
+                        {
+                            $scope.selected_directories.forEach(function(element){
+                               $http.delete("/dir/remove",{ params: {
+                                   dir_id: element
+                               }}).then(function (response) {
+                                   var index = $scope.directories.map(function(directory){
+                                       return directory.id
+                                   })
+                                       .indexOf(element);
+                                   $scope.directories.splice(index,1);
+                               }, function(response){});
+                            });
+
+                            $scope.selected_files.forEach(function(element){
+                               $http.delete("/file/remove", {
+                                   params: {
+                                       file_id: element
+                                   }
+                               }).then(function(response){
+                                   var index = $scope.files.map(function(file){
+                                       return file.id
+                                   }).indexOf(element);
+                                   $scope.files.splice(index,1);
+                                })
+                            });
+                        }
+                    }
+                }
             }])
     })();
 </script>
 
-<div class="w3-row drive-pages" ng-controller="DriveController">
+<div class="w3-row drive-pages">
 
   <!-- Sidebar/menu on large and medium screens -->
   <div class="w3-col m5 l2 w3-hide-small">
