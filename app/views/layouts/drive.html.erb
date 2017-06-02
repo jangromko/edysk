@@ -110,6 +110,56 @@
                     name: "Mój dysk"
                 }];
 
+                $scope.sort_options = {by: "name", order: "asc"};
+
+                $scope.change_sort = function(by)
+                {
+                  if(by == $scope.sort_options.by)
+                  {
+                      if($scope.sort_options.order == "asc")
+                          $scope.sort_options.order = "desc";
+                      else
+                          $scope.sort_options.order = "asc";
+                  }
+                  else
+                  {
+                      $scope.sort_options = {by: by, order: "asc"};
+                  }
+                  $scope.sort();
+                };
+
+                $scope.sort = function()
+                {
+                    function comparator(one, two)
+                    {
+                        if($scope.sort_options.by == "name")
+                        {
+                            if($scope.sort_options.order == "asc")
+                              return one.name > two.name;
+                            else
+                                return one.name < two.name
+                        }
+                        else
+                        {
+                            if($scope.sort_options.order == "asc")
+                                return one.updated_at > two.updated_at;
+                            else
+                                return one.updated_at < two.updated_at;
+                        }
+                    }
+
+                    $scope.directories.sort(comparator);
+                    $scope.files.sort(comparator);
+                };
+
+                $scope.$watch("directories", function(new_value, old_value){
+                   $scope.sort();
+                }, true);
+
+                $scope.$watch("files", function(new_value, old_value){
+                    $scope.sort()
+                }, true);
+
                 $scope.new_directory = {name: null, directory_id: -1};
 
                 $scope.create_directory = function () {

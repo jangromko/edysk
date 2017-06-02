@@ -12,13 +12,17 @@
   <table class="menu-files-and-folders" >
     <tr class="menu-files-and-folders-header">
       <th>
-        <div class="menu-files-and-folders-text">
+        <div class="menu-files-and-folders-text" ng-click="change_sort('name')">
           Nazwa
+          <span class="glyphicon glyphicon-chevron-up" ng-show="sort_options.by == 'name' && sort_options.order == 'asc'"></span>
+          <span class="glyphicon glyphicon-chevron-down" ng-show="sort_options.by == 'name' && sort_options.order == 'desc'"></span>
         </div>
       </th>
       <th class="w3-hide-small">
-        <div class="menu-files-and-folders-text">
+        <div class="menu-files-and-folders-text" ng-click="change_sort('updated_at')">
           Ostatnio modyfikowany
+          <span class="glyphicon glyphicon-chevron-up" ng-show="sort_options.by == 'updated_at' && sort_options.order == 'asc'"></span>
+          <span class="glyphicon glyphicon-chevron-down" ng-show="sort_options.by == 'updated_at' && sort_options.order == 'desc'"></span>
         </div>
       </th>
     </tr>
