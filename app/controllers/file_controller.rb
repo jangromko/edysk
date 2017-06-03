@@ -6,11 +6,14 @@ class FileController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def publish
-    hash = HashHelper.generate_hash
-    UserFile.find(params[:file_id]).update!(link: hash)
+    file = UserFile.find(params[:file_id])
+    if file.link.nil?
+      hash = HashHelper.generate_hash
+      file.update!(link: hash)
+    end
     render :json => {
         result: :ok,
-        link: file_shared_url+"/"+hash
+        link: file_shared_url+"/"+file.link
     }
   end
 
