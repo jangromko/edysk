@@ -317,7 +317,7 @@
                         $http.post("/file/publish", {
                                 file_id: $scope.selected_files[0]
                         }).then(function(response){
-                            window.prompt("Copy to clipboard: Ctrl+C, Enter", response.data.link);
+                            window.prompt("Skopiuj link do schowka: Ctrl+C", response.data.link);
                         });
                     }
                 };
