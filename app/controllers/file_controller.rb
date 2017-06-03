@@ -1,5 +1,6 @@
 require 'json'
 require 'securerandom'
+require 'copy_carrierwave_file'
 class FileController < ApplicationController
   #if you want to change a file, you need to have its id
   before_action :file_id_param, only:  [:name, :move, :copy,:remove, :unshare, :publish, :download]
@@ -84,7 +85,7 @@ class FileController < ApplicationController
       file.directory = directory
       if file.valid?
         file.save!
-        render :json => Response.response_ok
+        render :json => {response: :ok, file: file.as_json}
       else
         render :json => {response: :error, errors: file.errors}
       end
@@ -92,9 +93,14 @@ class FileController < ApplicationController
   end
 
   def copy
+    params.require(:dir_id)
     UserFile.transaction do
-      UserFile.find(params[:file_id]).dup.save!
-      render :json => Response.response_ok
+      file = UserFile.find(params[:file_id])
+      copied_file = file.deep_dup
+      CopyCarrierwaveFile::CopyFileService.new(file, copied_file, :file)
+      file.directory_id = params[:dir_id]
+      file.save!
+      render :json => {response: :ok, file: file}
     end
   end
 

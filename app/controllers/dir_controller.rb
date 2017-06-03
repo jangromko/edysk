@@ -16,9 +16,17 @@ class DirController < ApplicationController
     params.require :parent_directory
     directory = Directory.find params[:dir_id]
     directory.directory_id = params[:parent_directory]
-    if directory.valid?
+    directory_id = params[:parent_directory]
+    ids = (Directory.join_recursive do
+      start_with(directory_id: directory_id)
+      .connect_by(directory_id: :id)
+    end).map(&:id)
+    if ids.include? params[:dir_id]
+      render :json => { result: :error, errors: ["You cannot move a parent directory to a descendant"]},
+             :status => 400
+    elsif directory.valid?
       directory.save!
-      render :json => Response.response_ok
+      render :json => {result: :ok, directory: directory.as_json}
     else
       render :json => {result: :error, errors: directory.errors},
              :status => 400

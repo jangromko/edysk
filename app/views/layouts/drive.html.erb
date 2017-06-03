@@ -99,6 +99,30 @@
                             $scope.select_all();
                         }
                     });
+
+                hotkeys.bindTo($scope)
+                    .add({
+                       combo: 'ctrl+x',
+                        callback: function(event, hotkey){
+                           $scope.cut();
+                        }
+                    });
+
+                hotkeys.bindTo($scope)
+                    .add({
+                        combo: 'ctrl+c',
+                        callback: function(event, hotkey){
+                            $scope.copy();
+                        }
+                    });
+
+                hotkeys.bindTo($scope)
+                    .add({
+                        combo: 'ctrl+v',
+                        callback: function(event, hotkey){
+                            $scope.paste();
+                        }
+                    });
                 $scope.directories = [];
                 $scope.files = [];
 
@@ -321,6 +345,71 @@
                         });
                     }
                 };
+
+                $scope.clipboard = {
+                    cut: false,
+                    selected_files: [],
+                    selected_directories: []
+                };
+
+                $scope.cut = function()
+                {
+                    $scope.clipboard = {
+                        cut: true,
+                        selected_files: $scope.selected_files,
+                        selected_directories: $scope.selected_directories
+                    };
+                };
+
+                $scope.copy = function()
+                {
+                    $scope.clipboard = {
+                        cut: false,
+                        selected_files: $scope.selected_files,
+                        selected_directories: $scope.selected_directories
+                    };
+                };
+
+                $scope.paste = function()
+                {
+                    $scope.clipboard.selected_files.forEach(function(element)
+                    {
+                        var url = "";
+                        if($scope.clipboard.cut)
+                            url = "/file/move";
+                        else
+                            url = "/file/copy";
+                        $http.post(url, {
+                            file_id: element,
+                            dir_id: $scope.current_directory.id
+                        }).then(function(response)
+                        {
+                            if($scope.current_directory.id == response.data.file.directory_id)
+                              $scope.files.push(response.data.file);
+                        });
+                    });
+                    $scope.clipboard.selected_files = [];
+
+                    $scope.clipboard.selected_directories.forEach(function(element)
+                    {
+                       var url = "";
+                       if($scope.clipboard.cut)
+                           url = "/dir/move";
+                       else
+                           url = "/dir/copy";
+
+                       $http.post(url, {
+                           dir_id: element,
+                           parent_directory: $scope.current_directory.id
+                       }).then(function(response)
+                       {
+                           if($scope.current_directory.id == response.data.directory.directory_id)
+                               $scope.directories.push(response.data.directory);
+                       });
+                    });
+
+                    $scope.clipboard.selected_directories = [];
+                }
             }])
     })();
 </script>

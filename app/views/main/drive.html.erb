@@ -273,7 +273,7 @@
     <i class="fa fa-download"> Pobierz</i>
   </button>
 
-  <button id="share-button" class="button-standard button-color-4" ng-click="publish()" ng-disabled="!((selected_files.length == 1 && selected_directories.length == 0) || (selected_files.length == 0 && selected_directories.length==1))">
+  <button id="share-button" class="button-standard button-color-4" ng-click="publish()" ng-disabled="!(selected_files.length == 1 && selected_directories.length == 0)">
     <i class="fa fa-user-plus"> Udostępnij</i>
     <input type="hidden" id="share_url" ng-model="share_url"/>
   </button>
@@ -305,7 +305,7 @@
       </div>
     </th>
   </tr>
-  <tr class="menu-files-and-folders-element file-folder" ng-repeat="directory in directories" ng-dblclick="open_directory(directory)" ng-class="{ selected: (selected_directories.indexOf(directory.id) != -1)}" ng-click="select_directory($event, directory.id)">
+  <tr class="menu-files-and-folders-element file-folder" ng-repeat="directory in directories" ng-dblclick="open_directory(directory)" ng-class="{ selected: (selected_directories.indexOf(directory.id) != -1), 'menu-files-and-folders-element-cut': (clipboard.cut == true && clipboard.selected_directories.indexOf(directory.id) != (-1))}" ng-click="select_directory($event, directory.id)">
     <td>
       <div class="menu-files-and-folders-text">
         <div class="files-folders-icon glyphicon glyphicon-folder-open"></div>
@@ -319,7 +319,7 @@
     </td>
   </tr>
 
-  <tr class="menu-files-and-folders-element" ng-repeat="file in files" ng-dblclick="download_file(file.id)" ng-click="select_file($event, file.id)" ng-class="{ selected: (selected_files.indexOf(file.id) != -1)}">
+  <tr class="menu-files-and-folders-element" ng-repeat="file in files" ng-dblclick="download_file(file.id)" ng-click="select_file($event, file.id)" ng-class="{ selected: (selected_files.indexOf(file.id) != -1), 'menu-files-and-folders-element-cut': (clipboard.cut == true && clipboard.selected_files.indexOf(file.id) != (-1))}">
     <td>
       <div class="menu-files-and-folders-text">
         <div class="files-folders-icon glyphicon glyphicon-file"></div>
