@@ -159,9 +159,9 @@
                         if($scope.sort_options.by == "name")
                         {
                             if($scope.sort_options.order == "asc")
-                              return one.name > two.name;
+                              return one.name.toLowerCase() > two.name.toLowerCase();
                             else
-                                return one.name < two.name
+                                return one.name.toLowerCase() < two.name.toLowerCase();
                         }
                         else
                         {
