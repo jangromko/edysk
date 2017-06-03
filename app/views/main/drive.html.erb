@@ -1,35 +1,13 @@
 <div>
 
-
-  <script>
-
-      window.onload = function ()
-      {
-          document.getElementById("share-button").disabled = true;
-          document.getElementById("download-button").disabled = true;
-      };
-
-      function enable_buttons()
-      {
-          document.getElementById("share-button").disabled = false;
-          document.getElementById("download-button").disabled = false;
-      }
-
-      function disable_buttons()
-      {
-          document.getElementById("share-button").disabled = true;
-          document.getElementById("download-button").disabled = true;
-      }
-
-  </script>
-
   <div class="w3-right">
-    <button id="download-button" class="button-standard button-color-4" disabled>
+    <button id="download-button" class="button-standard button-color-4" ng-click="download_selected_file()" ng-disabled="selected_files.length != 1 || selected_directories.length != 0">
       <i class="fa fa-download"> Pobierz</i>
     </button>
 
-    <button id="share-button" class="button-standard button-color-4" disabled>
+    <button id="share-button" class="button-standard button-color-4" ng-click="publish()" ng-disabled="!((selected_files.length == 1 && selected_directories.length == 0) || (selected_files.length == 0 && selected_directories.length==1))">
       <i class="fa fa-user-plus"> Udostępnij</i>
+      <input type="hidden" id="share_url" ng-model="share_url"/>
     </button>
   </div>
 
@@ -60,7 +38,7 @@
         </div>
       </th>
     </tr>
-    <tr class="menu-files-and-folders-element" ng-repeat="directory in directories" ng-dblclick="open_directory(directory)" ng-class="{ selected: (selected_directories.indexOf(directory.id) != -1)}" ng-click="select_directory($event, directory.id)" onclick="enable_buttons()" ondblclick="disable_buttons()">
+    <tr class="menu-files-and-folders-element" ng-repeat="directory in directories" ng-dblclick="open_directory(directory)" ng-class="{ selected: (selected_directories.indexOf(directory.id) != -1)}" ng-click="select_directory($event, directory.id)">
       <td>
         <div class="menu-files-and-folders-text">
           <div class="files-folders-icon glyphicon glyphicon-folder-open"></div>
@@ -73,7 +51,8 @@
         </div>
       </td>
     </tr>
-    <tr class="menu-files-and-folders-element" ng-repeat="file in files" ng-dblclick="download_file(file.id)" ng-click="select_file($event, file.id)" ng-class="{ selected: (selected_files.indexOf(file.id) != -1)}" onclick="enable_buttons()">
+    <tr class="menu-files-and-folders-element" ng-repeat="file in files" ng-dblclick="download_file(file.id)" ng-click="select_file($event, file.id)" ng-class="{ selected: (selected_files.indexOf(file.id) != -1)}">
+    <tr class="menu-files-and-folders-element" ng-repeat="file in files" ng-dblclick="download_file(file.id)" ng-click="select_file($event, file.id)" ng-class="{ selected: (selected_files.indexOf(file.id) != -1)}">
       <td>
         <div class="menu-files-and-folders-text">
           <div class="files-folders-icon glyphicon glyphicon-file"></div>
@@ -86,7 +65,7 @@
         </div>
       </td>
     </tr>
-    <tr ng-click="unselect_all()" onclick="disable_buttons()">
+    <tr ng-click="unselect_all()">
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>

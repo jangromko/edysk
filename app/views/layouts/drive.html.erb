@@ -182,7 +182,6 @@
                     $scope.selected_files = $scope.files.map(function(file){
                         return file.id;
                     });
-                    console.log($scope.selected_files);
                 };
 
                 $scope.current_directory = null;
@@ -295,12 +294,32 @@
                                    $scope.files.splice(index,1);
                                 })
                             });
+                            $scope.selected_directories = [];
+                            $scope.selected_files = [];
                         }
                     }
                 };
 
                 $scope.download_file = function(id){
                     window.location.href="/file/download/"+id;
+                };
+
+                $scope.download_selected_file = function()
+                {
+                    $scope.download_file($scope.selected_files[0]);
+                };
+
+                $scope.share_url = "";
+                $scope.publish = function()
+                {
+                    if($scope.selected_files.length == 1 && $scope.selected_directories.length == 0)
+                    {
+                        $http.post("/file/publish", {
+                                file_id: $scope.selected_files[0]
+                        }).then(function(response){
+                            window.prompt("Copy to clipboard: Ctrl+C, Enter", response.data.link);
+                        });
+                    }
                 };
             }])
     })();

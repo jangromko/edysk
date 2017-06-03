@@ -10,7 +10,7 @@ class FileController < ApplicationController
     UserFile.find(params[:file_id]).update!(link: hash)
     render :json => {
         result: :ok,
-        hash: hash
+        link: file_shared_url+"/"+hash
     }
   end
 
@@ -21,7 +21,7 @@ class FileController < ApplicationController
   end
 
   def shared_file
-    file = UserFile.find_by_link(params.require(:hash))
+    file = UserFile.find_by_link!(params.require(:hash))
     send_file file.file.current_path,
               filename: file.name
   end
