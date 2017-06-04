@@ -3,7 +3,7 @@ require 'securerandom'
 require 'copy_carrierwave_file'
 class FileController < ApplicationController
   #if you want to change a file, you need to have its id
-  before_action :file_id_param, only:  [:name, :move, :copy,:remove, :unshare, :publish, :download]
+  before_action :file_id_param, only: [:name, :move, :copy, :remove, :unshare, :publish, :download]
   skip_before_action :verify_authenticity_token
 
   def publish
@@ -31,14 +31,14 @@ class FileController < ApplicationController
   end
 
   def shared
-    render :json => {result: :ok, files: User.find(user_id).shared_files.to_a.map{
-      |shared_file|
-        user_file = shared_file.user_file
-        {
-            id: user_file.id,
-            name: user_file.name,
-            user: user_file.user.login
-        }
+    render :json => {result: :ok, files: User.find(user_id).shared_files.to_a.map {
+        |shared_file|
+      user_file = shared_file.user_file
+      {
+          id: user_file.id,
+          name: user_file.name,
+          user: user_file.user.login
+      }
     }}
   end
 
@@ -108,6 +108,7 @@ class FileController < ApplicationController
     file = UserFile.new(params.require(:file).permit(:name, :directory_id, :file))
     file.user_id = user_id
     file.save!
+    render :json => {result: :ok, file: file.as_json(except: [:user_id, :file_id])}
   end
 
   def unshare
