@@ -52,6 +52,8 @@ body {
 .file-or-folder-dropdown
 {
     min-width: 180px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .file-or-folder-dropdown-item
@@ -71,7 +73,8 @@ body {
     border-radius: 2px;
 
     padding: 10px 10px 10px 10px;
-    margin: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .button-50
