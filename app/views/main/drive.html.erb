@@ -288,16 +288,7 @@
 </script>
 
 
-<div class="w3-right">
-  <button id="download-button" class="button-standard button-color-4" ng-click="download_selected_file()" ng-disabled="selected_files.length != 1 || selected_directories.length != 0">
-    <i class="fa fa-download"> Pobierz</i>
-  </button>
 
-  <button id="share-button" class="button-standard button-color-4" ng-click="publish()" ng-disabled="!(selected_files.length == 1 && selected_directories.length == 0)">
-    <i class="fa fa-user-plus"> Udostępnij</i>
-    <input type="hidden" id="share_url" ng-model="share_url"/>
-  </button>
-</div>
 
 <div class="path w3-padding">
   <div ng-repeat="directory in path" ng-click="open_directory(directory)" style="display: inline">
