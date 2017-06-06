@@ -1,0 +1,2 @@
+class NotPermitted < Exception
+end

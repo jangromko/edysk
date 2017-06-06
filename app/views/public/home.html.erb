@@ -1,12 +1,11 @@
 <% content_for :title, "Strona główna" %>
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
   <div class="w3-display-middle center">
-    <form action="">
-      <input type="text" placeholder="Login" class="input-standard w3-animate-top"/>
-      <input type="password" placeholder="Hasło" class="input-standard w3-animate-top"/>
-      <input type="submit" class="button-default medium-dark-red w3-animate-top" value="Zaloguj"/>
-    </form>
-
+    <%= form_for User.new, url: login_url do |form| %>
+        <%= form.text_field :login, placeholder: "Login", class: "input-standard w3-animate-top" %>
+        <%= form.password_field :password, placeholder: "Hasło", class: "input-standard w3-animate-top" %>
+        <input class="button-default medium-dark-red w3-animate-top" value="Zaloguj" type="submit"/>
+    <% end %>
     <strong><%= link_to "Przypomnij mi hasło", forgot_password_path, class: "link-1 w3-animate-top" %></strong>
   </div>
 </div>

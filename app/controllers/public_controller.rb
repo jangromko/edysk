@@ -29,7 +29,8 @@ class PublicController < ApplicationController
 
     if request.post?
       @user = User.new(params.require(:user).permit(:login, :password, :password_confirmation, :email))
-
+      @user.account_type_id = AccountType.minimum(:id)
+      @user.used_size = 0
       if @user.valid?
         User.transaction do
           @user.save!
@@ -45,6 +46,23 @@ class PublicController < ApplicationController
       @user = User.new
     end
 
+  end
+
+  def login
+    user_params = params.require(:user).permit(:login, :password)
+    id = User.authenticate(user_params[:login], user_params[:password])
+    if id.nil?
+      flash[:error] = "Zły identyfikator/złe hasło"
+      redirect_to root_url
+    else
+      session[:user_id] = id
+      redirect_to drive_url
+    end
+  end
+
+  def logout
+    session.delete :user_id
+    redirect_to root_url
   end
 
 end

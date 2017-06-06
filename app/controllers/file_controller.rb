@@ -4,6 +4,7 @@ require 'copy_carrierwave_file'
 class FileController < ApplicationController
   #if you want to change a file, you need to have its id
   before_action :file_id_param, only: [:name, :move, :copy, :remove, :unshare, :publish, :download]
+  before_action :authorization, except: [:shared_file]
   skip_before_action :verify_authenticity_token
 
   def publish
@@ -131,10 +132,14 @@ class FileController < ApplicationController
 
   def file_id_param
     params.require(:file_id)
+    raise NotPermitted unless UserFile.find(params[:file_id]).user_id.eql? user_id
   end
 
+  def authorization
+    raise NotPermitted if user_id.nil?
+  end
   private
   def user_id
-    User.maximum(:id)
+    session[:user_id]
   end
 end

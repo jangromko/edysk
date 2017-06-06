@@ -11,6 +11,15 @@ class User < ApplicationRecord
     user.password = Digest::SHA2.new(512).hexdigest(user.salt + user.password)
     user.password_confirmation = user.password
   end
+
+  def self.authenticate(login, password)
+    user = self.find_by_login(login)
+    return nil if user.nil?
+
+    return user.id if user.password.eql?(Digest::SHA2.new(512).hexdigest(user.salt+password))
+    return nil
+  end
+
   has_one :directory, as: :root_directory, autosave: true
   has_many :user_files
   has_many :directories, autosave: true

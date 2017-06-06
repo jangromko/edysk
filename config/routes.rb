@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   post 'forgot_password', to: 'public#forgot_password'
   root to: 'public#home'
   get 'drive', to: 'main#drive'
+  get 'logout', to: 'public#logout'
+
+  post 'login', to: 'public#login'
 
   namespace :admin do
     resources :users, :account_types

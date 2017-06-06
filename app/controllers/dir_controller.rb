@@ -1,5 +1,7 @@
 class DirController < ApplicationController
+  before_action :authorization
   before_action :dir_id_param, only: [:move, :remove, :name, :publish, :unshare, :show]
+
   skip_before_action :verify_authenticity_token
 
   def publish
@@ -7,6 +9,10 @@ class DirController < ApplicationController
     directory.link = HashHelper.generate_hash
     directory.save!
     render :json => {result: :ok, hash: directory.link}
+  end
+
+  def authorization
+    raise NotPermitted if user_id.nil?
   end
 
   def shared
@@ -87,8 +93,9 @@ class DirController < ApplicationController
   private
   def dir_id_param
     params.require(:dir_id)
+    raise NotPermitted unless Directory.find(params[:dir_id]).user_id.eql? user_id
   end
   def user_id
-    User.maximum(:id)
+    session[:user_id]
   end
 end
