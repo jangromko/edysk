@@ -107,7 +107,20 @@ class FileController < ApplicationController
   def upload
     file = UserFile.new(params.require(:file).permit(:name, :directory_id, :file))
     file.user_id = user_id
-    file.save!
+    User.transaction do
+      user = User.find(user_id).lock!(true)
+      puts file.file.size
+      if user.used_size + file.file.size > user.account_type.space
+        render :json => {result: :error, errors: ["Too big file"]},
+               :status => 400
+        return
+      else
+        user.used_size += file.file.size
+        file.size = file.file.size
+        file.save!
+        user.save!
+      end
+    end
     render :json => {result: :ok, file: file.as_json(except: [:user_id, :file_id])}
   end
 
