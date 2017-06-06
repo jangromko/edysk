@@ -219,6 +219,7 @@
 
 
                 $scope.new_file = {name: null, directory_id: -1, file: null};
+                $scope.new_name = {id: null, name: "", is_file: false};
 
                 $scope.upload_file = function (evt)
                 {
@@ -406,7 +407,33 @@
                     }
                     else if (code == 'F2')
                     {
-                        change_name_modal($scope.selected_directories[0]);
+                        if($scope.selected_directories.length == 1 && $scope.selected_files.length == 0)
+                        {
+                            var index = $scope.directories.map(function(directory)
+                            {
+                                return directory.id
+                            }).indexOf($scope.selected_directories[0]);
+                            $scope.new_name = {
+                                id: $scope.directories[index].id,
+                                name: $scope.directories[index].name,
+                                is_file: false
+                            };
+                            modal_new_name.style.display = "block";
+                            document.getElementById("new-file-folder-selection").classList.remove("show");
+                        }
+                        else if(($scope.selected_directories.length == 0 && $scope.selected_files.length == 1))
+                        {
+                            var index = $scope.files.map(function(file){
+                                return file.id;
+                            }).indexOf($scope.selected_files[0]);
+                          $scope.new_name = {
+                              id: $scope.files[index].id,
+                              name: $scope.files[index].name,
+                              is_file: true
+                          };
+                            modal_new_name.style.display = "block";
+                            document.getElementById("new-file-folder-selection").classList.remove("show");
+                        }
                     }
                 };
 
@@ -422,14 +449,35 @@
 
                 $scope.change_name = function ()
                 {
-                    $http.post("/dir/name", {
-                        dir_id: $scope.selected_directories[0],
-                        new_name: document.getElementById("new_name").value
-                    }).then(function (response)
+                    if($scope.new_name.is_file)
                     {
-                        document.getElementById('new-name-modal').style.display = "none";
-                        document.getElementById('new_name').value = '';
-                    })
+                        $http.post("/file/name",{
+                            file_id: $scope.new_name.id,
+                            new_name: $scope.new_name.name
+                        }).then(function(response)
+                        {
+                           var index =  $scope.files.map(function(file){
+                               return file.id;
+                           }).indexOf($scope.new_name.id);
+                           $scope.files[index] = response.data.file;
+                            document.getElementById('new-name-modal').style.display = "none";
+                        });
+                    }
+                    else
+                    {
+                        $http.post("/dir/name", {
+                            dir_id: $scope.new_name.id,
+                            new_name: $scope.new_name.name
+                        }).then(function (response)
+                        {
+                            var index =  $scope.directories.map(function(directory){
+                                return directory.id;
+                            }).indexOf($scope.new_name.id);
+                            $scope.directories[index] = response.data.directory;
+                            document.getElementById('new-name-modal').style.display = "none";
+                        })
+                    }
+
                 };
 
                 $scope.share_url = "";
@@ -509,6 +557,14 @@
                     });
 
                     $scope.clipboard.selected_directories = [];
+                };
+
+                $scope.validate_change_name = function()
+                {
+                    if($scope.new_name.is_file)
+                    {
+
+                    }
                 }
             }])
     })();
@@ -583,7 +639,7 @@
           <form name="new_folder_form" ng-submit="change_name()">
             <div class="modal-content">
               <div class="modal-title">Zmień nazwę</div>
-              <input class="input-in-modal" type="text" id="new_name"/>
+              <input class="input-in-modal" ng-model="new_name.name" ui-validate="validate_change_name()" type="text" id="new_name"/>
               <button type="submit" class="modal-button">OK</button>
             </div>
           </form>

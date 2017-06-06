@@ -72,7 +72,7 @@ class DirController < ApplicationController
     directory.name = params[:new_name]
     if directory.valid?
       directory.save!
-      render :json => Response.response_ok
+      render :json => {result: :ok, directory: directory.as_json(except: [:user_id, :directory_id])}
     else
       render :json => {result: :error, errors: directory.errors},
              :status => 400

@@ -55,7 +55,7 @@ class FileController < ApplicationController
     file.name = params[:new_name]
     if file.valid?
       file.save!
-      render :json => Response.response_ok
+      render :json => {result: :ok, file: file.as_json}
     else
       render :json => {result: :error, errors: file.errors}
     end
