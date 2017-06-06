@@ -404,6 +404,10 @@
                             $scope.selected_files = [];
                         }
                     }
+                    else if (code == 'F2')
+                    {
+                        change_name_modal($scope.selected_directories[0]);
+                    }
                 };
 
                 $scope.download_file = function (id)
@@ -414,6 +418,18 @@
                 $scope.download_selected_file = function ()
                 {
                     $scope.download_file($scope.selected_files[0]);
+                };
+
+                $scope.change_name = function ()
+                {
+                    $http.post("/dir/name", {
+                        dir_id: $scope.selected_directories[0],
+                        new_name: document.getElementById("new_name").value
+                    }).then(function (response)
+                    {
+                        document.getElementById('new-name-modal').style.display = "none";
+                        document.getElementById('new_name').value = '';
+                    })
                 };
 
                 $scope.share_url = "";
@@ -536,7 +552,6 @@
                 document.getElementById("new-file-folder-selection").classList.remove("show");
             }
 
-
             // When the user clicks on <span> (x), close the modal
             span.onclick = function ()
             {
@@ -561,6 +576,39 @@
         <a href="" onclick="" class="sidebar-item no-decoration w3-bar-item w3-padding w3-hide-small"><i class="fa fa-male fa-fw w3-margin-right"></i>Współpracownicy</a>
         <a href="" onclick="" class="sidebar-item no-decoration w3-bar-item w3-padding w3-hide-small"><i class="glyphicon glyphicon-hdd w3-margin-right"></i>Wykorzystanie
           dysku</a>
+
+
+
+        <div id="new-name-modal" class="modal">
+          <form name="new_folder_form" ng-submit="change_name()">
+            <div class="modal-content">
+              <div class="modal-title">Zmień nazwę</div>
+              <input class="input-in-modal" type="text" id="new_name"/>
+              <button type="submit" class="modal-button">OK</button>
+            </div>
+          </form>
+        </div>
+
+
+        <script>
+            var modal_new_name = document.getElementById('new-name-modal');
+
+            function change_name_modal(directory)
+            {
+                modal_new_name.style.display = "block";
+                //document.getElementById("new_name").value = directory.name;
+                document.getElementById("new-file-folder-selection").classList.remove("show");
+            }
+
+
+            window.onclick = function (event)
+            {
+                if (event.target == modal_new_name)
+                {
+                    modal_new_name.style.display = "none";
+                }
+            }
+        </script>
       </div>
     </nav>
   </div>

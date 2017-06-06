@@ -254,7 +254,27 @@
          */
         function menuItemListener(link)
         {
-            console.log("ID elementu: " + itemInContext.getAttribute("data-id") + ", akcja - " + link.getAttribute("data-action"));
+            if (itemInContext.getAttribute("dir-id") != null)
+            {
+                console.log("ID folderu: " + itemInContext.getAttribute("dir-id") + ", akcja - " + link.getAttribute("data-action"));
+            }
+            else if (itemInContext.getAttribute("file-id") != null)
+            {
+                console.log("ID pliku: " + itemInContext.getAttribute("file-id") + ", akcja - " + link.getAttribute("data-action"));
+                if (link.getAttribute("data-action") == 'Delete')
+                {
+                    /*$http.delete("/file/remove", {
+                        params: {
+                            file_id: itemInContext.getAttribute("file-id")
+                        }
+                    }).then(function (response)
+                    {
+                    })
+
+                    delete */
+                }
+            }
+
             toggleMenuOff();
         }
 
@@ -305,7 +325,7 @@
       </div>
     </th>
   </tr>
-  <tr class="menu-files-and-folders-element file-folder" ng-repeat="directory in directories" ng-dblclick="open_directory(directory)" ng-class="{ selected: (selected_directories.indexOf(directory.id) != -1), 'menu-files-and-folders-element-cut': (clipboard.cut == true && clipboard.selected_directories.indexOf(directory.id) != (-1))}" ng-click="select_directory($event, directory.id)">
+  <tr class="menu-files-and-folders-element file-folder" dir-id={{directory.id}} ng-repeat="directory in directories" ng-dblclick="open_directory(directory)" ng-class="{ selected: (selected_directories.indexOf(directory.id) != -1), 'menu-files-and-folders-element-cut': (clipboard.cut == true && clipboard.selected_directories.indexOf(directory.id) != (-1))}" ng-click="select_directory($event, directory.id)">
     <td>
       <div class="menu-files-and-folders-text">
         <div class="files-folders-icon glyphicon glyphicon-folder-open"></div>
@@ -319,7 +339,7 @@
     </td>
   </tr>
 
-  <tr class="menu-files-and-folders-element" ng-repeat="file in files" ng-dblclick="download_file(file.id)" ng-click="select_file($event, file.id)" ng-class="{ selected: (selected_files.indexOf(file.id) != -1), 'menu-files-and-folders-element-cut': (clipboard.cut == true && clipboard.selected_files.indexOf(file.id) != (-1))}">
+  <tr class="menu-files-and-folders-element" file-id={{file.id}} ng-repeat="file in files" ng-dblclick="download_file(file.id)" ng-click="select_file($event, file.id)" ng-class="{ selected: (selected_files.indexOf(file.id) != -1), 'menu-files-and-folders-element-cut': (clipboard.cut == true && clipboard.selected_files.indexOf(file.id) != (-1))}">
     <td>
       <div class="menu-files-and-folders-text">
         <div class="files-folders-icon glyphicon glyphicon-file"></div>
