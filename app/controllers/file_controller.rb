@@ -44,8 +44,15 @@ class FileController < ApplicationController
   end
 
   def remove
-    UserFile.find(params[:file_id]).destroy!
-    render :json => Response.response_ok
+    User.transaction do
+      file = UserFile.find(params[:file_id])
+      user = User.find(user_id).lock!(true)
+      user.used_size -= file.size
+      user.save!
+      file.destroy!
+    end
+    user = User.find(user_id)
+    render :json => { result: :ok, space: space}
   end
 
   def name
@@ -110,9 +117,8 @@ class FileController < ApplicationController
     file.user_id = user_id
     User.transaction do
       user = User.find(user_id).lock!(true)
-      puts file.file.size
       if user.used_size + file.file.size > user.account_type.space
-        render :json => {result: :error, errors: ["Too big file"]},
+        render :json => {response: :error, errors: ["Too big file"]},
                :status => 400
         return
       else
@@ -122,7 +128,7 @@ class FileController < ApplicationController
         user.save!
       end
     end
-    render :json => {result: :ok, file: file.as_json(except: [:user_id, :file_id])}
+    render :json => {result: :ok, file: file.as_json(except: [:user_id, :file_id]), space: space }
   end
 
   def unshare
@@ -135,6 +141,13 @@ class FileController < ApplicationController
     raise NotPermitted unless UserFile.find(params[:file_id]).user_id.eql? user_id
   end
 
+  def space
+    user = User.find(user_id)
+    {
+        used: user.used_size,
+        max_space: user.account_type.space
+    }
+  end
   def authorization
     raise NotPermitted if user_id.nil?
   end
