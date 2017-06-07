@@ -234,12 +234,10 @@
                             $scope.new_file.file = e.target.result;
 
                             $scope.new_file.name = the_file.name;
-                            console.log($scope.new_file.name);
                             $scope.new_file.directory_id = $scope.current_directory.id;
                             $http.put("/file/upload", {file: $scope.new_file})
                                 .then(function successCallback(response)
                                 {
-                                    console.log(response.status);
                                     $scope.files.push(response.data.file);
                                     $scope.new_file = {name: null, directory_id: -1, file: null};
                                     $scope.space = response.data.space;
