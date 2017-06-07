@@ -569,10 +569,50 @@
 
 <div class="w3-row drive-pages">
 
+
+  <div id="new-folder-modal" class="modal">
+    <form name="new_folder_form" ng-submit="new_folder_form.$valid && create_directory()">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-title">Stwórz nowy folder</div>
+        <input class="input-in-modal" type="text" ui-validate="{name_exist: 'name_exists($value)'}" ng-model="new_directory.name" placeholder="Wpisz nazwę nowego katalogu"/>
+        <button type="submit" class="modal-button">OK</button>
+        <div class="error" ng-show="!new_folder_form.$valid">Niepoprawna nazwa!</div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+      //Modal – creating new folder
+      var modal = document.getElementById('new-folder-modal');
+      var span = document.getElementsByClassName("close")[0];
+
+      function showFolderModal()
+      {
+          modal.style.display = "block";
+          document.getElementById("new-file-folder-selection").classList.remove("show");
+      }
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function ()
+      {
+          modal.style.display = "none";
+      };
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event)
+      {
+          if (event.target == modal)
+          {
+              modal.style.display = "none";
+          }
+      }
+  </script>
+
   <!-- Sidebar/menu on large and medium screens -->
   <div class="w3-col m4 l2 w3-hide-small">
     <nav class="sidebar w3-white"><br>
-      <div class="w3-bar-block center">
+      <div class="w3-bar-block">
         <button class="button-standard button-wide button-color-4 drop-button" onclick="newFileFolder()">Nowy</button>
 
         <div id="new-file-folder-selection" class="file-or-folder-dropdown w3-bar-block w3-hide dropdown-content">
@@ -582,51 +622,13 @@
 
         <input id="file-dialog" type="file" style="display: none"/>
 
-        <div id="new-folder-modal" class="modal">
-          <form name="new_folder_form" ng-submit="new_folder_form.$valid && create_directory()">
-            <div class="modal-content">
-              <span class="close">&times;</span>
-              <div class="modal-title">Stwórz nowy folder</div>
-              <input class="input-in-modal" type="text" ui-validate="{name_exist: 'name_exists($value)'}" ng-model="new_directory.name" placeholder="Wpisz nazwę nowego katalogu"/>
-              <button type="submit" class="modal-button">OK</button>
-              <div class="error" ng-show="!new_folder_form.$valid">Niepoprawna nazwa!</div>
-            </div>
-          </form>
-        </div>
-
-        <script>
-            //Modal – creating new folder
-            var modal = document.getElementById('new-folder-modal');
-            var span = document.getElementsByClassName("close")[0];
-
-            function showFolderModal()
-            {
-                modal.style.display = "block";
-                document.getElementById("new-file-folder-selection").classList.remove("show");
-            }
-
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function ()
-            {
-                modal.style.display = "none";
-            };
-
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function (event)
-            {
-                if (event.target == modal)
-                {
-                    modal.style.display = "none";
-                }
-            }
-        </script>
 
         <button id="download-button" class="button-standard button-wide button-color-4 button-margin-top-20" ng-click="download_selected_file()" ng-disabled="selected_files.length != 1 || selected_directories.length != 0">
           <i class="fa fa-download"> Pobierz</i>
         </button>
 
         <button id="share-button" class="button-standard button-wide button-color-4 button-margin-top-20" ng-click="publish()" ng-disabled="!(selected_files.length == 1 && selected_directories.length == 0)">
-          <i class="fa fa-user-plus"> Udostępnij</i>
+          <i class="fa fa-share"> Udostępnij</i>
           <input type="hidden" id="share_url" ng-model="share_url"/>
         </button>
 
@@ -666,11 +668,15 @@
   </div>
 
   <!-- Menu replacing sidebar menu on small screens -->
-  <div class="w3-col s12 w3-padding w3-hide-large w3-hide-medium">
-    <button class="button-standard button-color-4 w3-right button-circle-40"><i class="fa fa-file"></i></button>
-    <button class="button-standard button-color-4 w3-right w3-margin-right button-circle-40">
-      <i class="fa fa-folder-open"></i></button>
+  <div class="w3-col s12 w3-padding w3-hide-large w3-hide-medium center button-bar">
+    <button class="button-standard button-color-4 button-circle" onclick="fileDialog()"><i class="fa fa-file"></i></button>
+    <button class="button-standard button-color-4 button-circle" onclick="showFolderModal()"><i class="fa fa-folder-open"></i></button>
+    <button class="button-standard button-color-4 button-circle" ng-click="download_selected_file()" ng-disabled="selected_files.length != 1 || selected_directories.length != 0"><i class="fa fa-download"></i></button>
+    <button class="button-standard button-color-4 button-circle" ng-click="publish()" ng-disabled="!(selected_files.length == 1 && selected_directories.length == 0)"><i class="fa fa-share"></i></button>
+  </div>
 
+  <div class="w3-hide-large w3-hide-medium">
+    <br/><br/>
   </div>
 
   <div class="drive-content w3-col m8 l10">

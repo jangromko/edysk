@@ -39,7 +39,7 @@ body {
 {
     display: none;
     position: absolute;
-    z-index: 1;
+    z-index: 32;
     overflow: auto;
     box-shadow: 0 8px 16px 0 #555555;
 }
@@ -98,11 +98,13 @@ body {
     width: 80px;
 }
 
-.button-circle-40
+.button-circle
 {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    padding: 10px;
+    margin: 5px;
 }
 
 
@@ -118,14 +120,12 @@ body {
 {
     color: #bbbbbb;
     background-color: #eeeeee;
-    transition: 0ms;
 }
 
 .button-standard:disabled:hover
 {
     color: #bbbbbb;
     background-color: #eeeeee;
-    transition: 0ms;
 }
 
 .button-color-4:hover
@@ -261,7 +261,7 @@ body {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 40%;
+    width: 60%;
 }
 
 
@@ -367,4 +367,13 @@ body {
     color: #ffffff;
     background-color: #00a8a4;
     text-decoration: none;
+}
+
+.button-bar
+{
+    position: fixed;
+    background-color: #ffffff;
+    z-index: 2;
+    width: 100%;
+    margin-top: -5px;
 }
