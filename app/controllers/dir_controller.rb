@@ -28,7 +28,7 @@ class DirController < ApplicationController
       .connect_by(directory_id: :id)
     end).map(&:id)
     if ids.include? params[:dir_id]
-      render :json => { result: :error, errors: ["You cannot move a parent directory to a descendant"]},
+      render :json => { result: :error, errors: ["Nie możesz przenieść katalogu do jego potomka"]},
              :status => 400
     elsif directory.valid?
       directory.save!
@@ -64,7 +64,7 @@ class DirController < ApplicationController
   def remove
     directory = Directory.find(params[:dir_id])
     if directory.user_files.any? || directory.directories.any?
-      render :json => {result: :error, errors: ["The directory is not empty"]},
+      render :json => {result: :error, errors: ["Katalog nie jest pusty"]},
              :status => 400
     else
       directory.destroy!

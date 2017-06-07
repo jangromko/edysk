@@ -118,7 +118,7 @@ class FileController < ApplicationController
     User.transaction do
       user = User.find(user_id).lock!(true)
       if user.used_size + file.file.size > user.account_type.space
-        render :json => {response: :error, errors: ["Too big file"]},
+        render :json => {response: :error, errors: ["Zbyt duży plik"]},
                :status => 400
         return
       else

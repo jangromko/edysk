@@ -211,8 +211,9 @@
                             $scope.directories.push(response.data.directory);
                             $scope.new_directory = {name: null, directory_id: -1};
                             document.getElementById('new-folder-modal').style.display = "none";
-                        }, function (response)
+                        }, function(response)
                         {
+                            alert(response.data.errors);
                         });
                 };
 
@@ -242,7 +243,10 @@
                                     $scope.files.push(response.data.file);
                                     $scope.new_file = {name: null, directory_id: -1, file: null};
                                     $scope.space = response.data.space;
-                                }, $scope.handle_error);
+                                }, function(response)
+                                {
+                                    alert(response.data.errors);
+                                });
 
 
                         };
@@ -286,8 +290,9 @@
                         {
                             $scope.directories = response.data.directories;
                             $scope.files = response.data.files;
-                        }, function (response)
+                        }, function(response)
                         {
+                            alert(response.data.errors);
                         });
                     $scope.unselect_all();
                 });
@@ -380,8 +385,9 @@
                                     })
                                         .indexOf(element);
                                     $scope.directories.splice(index, 1);
-                                }, function (response)
+                                }, function(response)
                                 {
+                                    alert(response.data.errors);
                                 });
                             });
                             $scope.handle_error = function(response)
@@ -402,7 +408,10 @@
                                     }).indexOf(element);
                                     $scope.files.splice(index, 1);
                                     $scope.space = response.data.space;
-                                })
+                                },function(response)
+                                {
+                                    alert(response.data.errors);
+                                });
                             });
                             $scope.selected_directories = [];
                             $scope.selected_files = [];
@@ -466,6 +475,9 @@
                             }).indexOf($scope.new_name.id);
                             $scope.files[index] = response.data.file;
                             document.getElementById('new-name-modal').style.display = "none";
+                        }, function(response)
+                        {
+                            alert(response.data.errors);
                         });
                     }
                     else
@@ -481,7 +493,10 @@
                             }).indexOf($scope.new_name.id);
                             $scope.directories[index] = response.data.directory;
                             document.getElementById('new-name-modal').style.display = "none";
-                        })
+                        }, function(response)
+                        {
+                            alert(response.data.errors);
+                        });
                     }
 
                 };
@@ -496,6 +511,9 @@
                         }).then(function (response)
                         {
                             window.prompt("Skopiuj link do schowka: Ctrl+C", response.data.link);
+                        }, function(response)
+                        {
+                            alert(response.data.errors);
                         });
                     }
                 };
@@ -540,6 +558,9 @@
                         {
                             if ($scope.current_directory.id == response.data.file.directory_id)
                                 $scope.files.push(response.data.file);
+                        }, function(response)
+                        {
+                            alert(response.data.errors);
                         });
                     });
                     $scope.clipboard.selected_files = [];
@@ -559,6 +580,9 @@
                         {
                             if ($scope.current_directory.id == response.data.directory.directory_id)
                                 $scope.directories.push(response.data.directory);
+                        }, function(response)
+                        {
+                            alert(response.data.errors);
                         });
                     });
 
