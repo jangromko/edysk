@@ -1,0 +1,705 @@
+.inputStandard
+{
+    border: none;
+    border-radius: 1px;
+
+    margin-bottom: 20px;
+    padding: 8px;
+
+    width: 80%;
+    min-width: 190px;
+}
+
+#content{
+    position: absolute;
+    width: 90%;
+}
+.center
+{
+    text-align: center;
+}
+
+.buttonDefault
+{
+    border: none;
+    border-radius: 1px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+
+    width: 80%;
+    min-width: 120px;
+
+
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.buttonDefault:hover
+{
+    cursor: hand;
+}
+
+.noDecoration
+{
+    text-decoration: none;
+}
+
+.noDecoration:hover
+{
+    text-decoration: none;
+}
+
+.black
+{
+    color: #000100;
+}
+
+.black:hover
+{
+    color: #000100;
+}
+
+.link1
+{
+    font-size: 1rem;
+}
+
+.link1:hover
+{
+    font-size: 1.1rem;
+
+    -webkit-transition-duration: 0.15s; /* Safari */
+    transition-duration: 0.15s;
+}
+
+
+.sectionTitleAdmin
+{
+    color: #416daa;
+    margin-bottom: 2rem;
+    margin-top: 30rem;
+    font-size: 2rem;
+}
+
+.table,.table-all{
+    border-collapse:collapse;
+    border-spacing:0;
+    width:100%;
+    display:table
+}
+
+.table-all{
+    border:1px solid #ccc
+}
+
+.bordered tr,.table-all tr{
+    border-bottom:1px solid #ddd
+}
+
+.striped tbody tr:nth-child(even){
+    background-color:#f1f1f1
+}
+
+.table-all tr:nth-child(odd){
+    background-color:#fff
+}
+
+.table-all tr:nth-child(even){
+    background-color: #e4e8f1
+}
+
+.hoverable tbody tr:hover,
+ul.hoverable li:hover{
+    background-color: #cadbe3;
+}
+
+.w3-centered tr th,.centered tr td{
+    text-align:center
+}
+
+.table td,.table th,.table-all td,.table-all th{
+    padding:8px 8px;
+    display:table-cell;
+    text-align:left;
+    vertical-align:top
+}
+
+.table th:first-child,.table td:first-child,.table-all th:first-child,.table-all td:first-child{
+    padding-left:16px
+}
+
+
+.table td, .table th, .table-all td, .table-all th{
+    text-align: left;
+}
+
+.tableHeader{
+    color: #ffffff;
+    background-color: #416daa;
+}
+
+.errors {
+    color: #aa2020;
+}
+
+.buttonNew{
+    background-color: #416daa;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 1px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+
+    width: 80%;
+    min-width: 120px;
+
+
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+
+}
+
+
+body {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.sidebar
+{
+    padding-left: 20px;
+    padding-right: 20px;
+
+    height: 100% !important;
+}
+
+.sidebar-item
+{
+    color: #000100;
+    margin-top: 8px;
+
+    transition: 500ms;
+}
+
+.sidebar-item:hover
+{
+    color: #003a7f;
+
+    transition: 400ms;
+}
+
+.drop-button
+{
+
+}
+
+.dropdown-content
+{
+    display: none;
+    position: absolute;
+    z-index: 32;
+    overflow: auto;
+    box-shadow: 0 8px 16px 0 #555555;
+}
+
+.dropdown-full-screen
+{
+    width: 100%;
+}
+
+
+.file-or-folder-dropdown
+{
+    min-width: 180px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.file-or-folder-dropdown-item
+{
+    background-color: #fefffe;
+}
+
+.file-or-folder-dropdown-item:hover
+{
+    background-color: #f8f8f8;
+    color: #003a7f;
+}
+
+.button-standard
+{
+    border: 0;
+    border-radius: 2px;
+
+    padding: 10px 10px 10px 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.button-margin-top-20
+{
+    margin-top: 20px;
+}
+
+.button-wide
+{
+    width: 85%;
+}
+
+.button-30
+{
+    width: 30%;
+}
+
+.button-80px
+{
+    width: 80px;
+}
+
+.button-circle
+{
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    padding: 10px;
+    margin: 5px;
+}
+
+
+.button-color-4
+{
+    color: #eeffee;
+    background-color: #00a8a4;
+
+    transition: 500ms;
+}
+
+.button-standard:disabled
+{
+    color: #bbbbbb;
+    background-color: #eeeeee;
+}
+
+.button-standard:disabled:hover
+{
+    color: #bbbbbb;
+    background-color: #eeeeee;
+}
+
+.button-color-4:hover
+{
+    color: #ffffff;
+    background-color: #00c4c0;
+
+    transition: 500ms;
+}
+
+
+.drive-pages
+{
+    margin-top: 50px;
+    height: 100%;
+}
+
+.drive-content
+{
+    padding: 20px;
+    border-left: 2px solid #bbbbbb;
+}
+
+.menu-files-and-folders
+{
+    width: 100%;
+}
+
+.menu-files-and-folders-header
+{
+    border-bottom: 2px solid #555555;
+
+    font-size: 1.5rem;
+}
+
+.menu-files-and-folders-element
+{
+    border-bottom: 1px solid #999999;
+
+    font-size: 1.4rem;
+
+    cursor: default;
+
+    transition: 100ms;
+}
+
+.menu-files-and-folders-element-cut
+{
+    color: #cccccc;
+}
+
+
+.menu-files-and-folders-text
+{
+    margin: 10px;
+}
+
+.files-folders-icon
+{
+    margin-left: 5px;
+    margin-right: 8px;
+}
+
+.selected
+{
+    background-color: #00a8a4;
+    color: #fafffa;
+    border-bottom: 2px solid #00a8a4;
+}
+
+
+.path
+{
+    border: transparent;
+    border-radius: 5px;
+
+    font-size: 1.6rem;
+}
+
+.path-item
+{
+    cursor: hand;
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 6px 12px;
+
+    background-color: #fefffe;
+
+    transition: 100ms;
+}
+
+.path-item:hover
+{
+    background-color: #00a8a4;
+    color: #fafffa;
+
+    transition: 100ms;
+}
+
+
+.path-item-separator
+{
+    font-size: 1.4rem;
+}
+
+.menu-arrow
+{
+    font-size: 1rem;
+}
+
+
+.modal
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 200px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(255,255,255,0.8);
+}
+
+
+.modal-content
+{
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+}
+
+
+.input-in-modal
+{
+    border: 1px solid #00a8a4;
+    border-radius: 3px;
+    background-color: #fefffe;
+
+    padding: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    width: 80%;
+}
+
+.modal-title
+{
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.modal-button
+{
+    border: none;
+
+    color: #00a8a4;
+    background-color: transparent;
+
+    padding: 10px;
+
+    transition: 100ms;
+}
+
+.modal-button:hover
+{
+    color: #003a7f;
+    transition: 100ms;
+}
+
+.close
+{
+    color: #888888;
+    float: right;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus
+{
+    color: #000100;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* context menu */
+
+.context-menu
+{
+    display: none;
+    position: absolute;
+    z-index: 10;
+    padding: 12px 0;
+    width: 150px;
+    background-color: #fff;
+    border: solid 1px #dfdfdf;
+    box-shadow: 1px 1px 2px #cfcfcf;
+}
+
+.context-menu--active
+{
+    display: block;
+}
+
+.context-menu__items
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.context-menu__item
+{
+    display: block;
+    margin-bottom: 4px;
+}
+
+.context-menu__item:last-child
+{
+    margin-bottom: 0;
+}
+
+.context-menu__link
+{
+    display: block;
+    padding: 4px 12px;
+    color: #009393;
+    text-decoration: none;
+}
+
+.context-menu__link:hover
+{
+    color: #ffffff;
+    background-color: #00a8a4;
+    text-decoration: none;
+}
+
+.button-bar
+{
+    position: fixed;
+    background-color: #ffffff;
+    z-index: 2;
+    width: 100%;
+    margin-top: -5px;
+}
+
+.size-info
+{
+    color: #bbbbbb;
+    font-size: 1.3rem;
+
+    margin-top: 25px;
+    margin-left: 10px;
+}
+
+.size-bar
+{
+    margin-left: 10px;
+    margin-top: 8px;
+    width: 85%;
+}
+
+
+.input-standard
+{
+    border: none;
+    border-radius: 1px;
+
+    margin-bottom: 20px;
+    padding: 8px;
+
+    width: 80%;
+    min-width: 190px;
+}
+
+.center
+{
+    text-align: center;
+}
+
+.button-default
+{
+    border: none;
+    border-radius: 1px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+
+    width: 80%;
+    min-width: 120px;
+
+
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button-default:hover
+{
+    cursor: hand;
+}
+
+.medium-dark-green
+{
+    background-color: #108845;
+    color: #fafffa;
+}
+
+.medium-dark-green:hover
+{
+    background-color: #20aa55;
+    color: #fdfffd;
+}
+
+.medium-dark-red
+{
+    background-color: #aa2020;
+    color: #fffafa;
+}
+
+.medium-dark-red:hover
+{
+    background-color: #bb2020;
+    color: #fffdfd;
+}
+
+.login-register
+{
+    text-align: right;
+}
+
+.no-decoration
+{
+    text-decoration: none;
+}
+
+.no-decoration:hover
+{
+    text-decoration: none;
+}
+
+.black
+{
+    color: #000100;
+}
+
+.black:hover
+{
+    color: #000100;
+}
+
+.link-1
+{
+    font-size: 1rem;
+}
+
+.link-1:hover
+{
+    font-size: 1.1rem;
+
+    -webkit-transition-duration: 0.15s; /* Safari */
+    transition-duration: 0.15s;
+}
+
+.frame
+{
+    border: solid 4px #aa2020;
+    border-radius: 40px;
+    background-color: #fdfdfd;
+
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 5%;
+    padding-bottom: 5%;
+
+    margin-top: 60px;
+}
+
+.section-title
+{
+    color: #aa2020;
+    margin-bottom: 5%;
+    font-size: 2rem;
+}
+
+.errors
+{
+    color: #aa2020;
+}
+
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's 
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */

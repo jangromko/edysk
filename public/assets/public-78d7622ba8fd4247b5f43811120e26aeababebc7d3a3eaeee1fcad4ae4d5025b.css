@@ -1,0 +1,126 @@
+.input-standard
+{
+    border: none;
+    border-radius: 1px;
+
+    margin-bottom: 20px;
+    padding: 8px;
+
+    width: 80%;
+    min-width: 190px;
+}
+
+.center
+{
+    text-align: center;
+}
+
+.button-default
+{
+    border: none;
+    border-radius: 1px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+
+    width: 80%;
+    min-width: 120px;
+
+
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button-default:hover
+{
+    cursor: hand;
+}
+
+.medium-dark-green
+{
+    background-color: #108845;
+    color: #fafffa;
+}
+
+.medium-dark-green:hover
+{
+    background-color: #20aa55;
+    color: #fdfffd;
+}
+
+.medium-dark-red
+{
+    background-color: #aa2020;
+    color: #fffafa;
+}
+
+.medium-dark-red:hover
+{
+    background-color: #bb2020;
+    color: #fffdfd;
+}
+
+.login-register
+{
+    text-align: right;
+}
+
+.no-decoration
+{
+    text-decoration: none;
+}
+
+.no-decoration:hover
+{
+    text-decoration: none;
+}
+
+.black
+{
+    color: #000100;
+}
+
+.black:hover
+{
+    color: #000100;
+}
+
+.link-1
+{
+    font-size: 1rem;
+}
+
+.link-1:hover
+{
+    font-size: 1.1rem;
+
+    -webkit-transition-duration: 0.15s; /* Safari */
+    transition-duration: 0.15s;
+}
+
+.frame
+{
+    border: solid 4px #aa2020;
+    border-radius: 40px;
+    background-color: #fdfdfd;
+
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 5%;
+    padding-bottom: 5%;
+
+    margin-top: 60px;
+}
+
+.section-title
+{
+    color: #aa2020;
+    margin-bottom: 5%;
+    font-size: 2rem;
+}
+
+.errors
+{
+    color: #aa2020;
+}
