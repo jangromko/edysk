@@ -376,3 +376,19 @@ body {
     width: 100%;
     margin-top: -5px;
 }
+
+.size-info
+{
+    color: #bbbbbb;
+    font-size: 1.3rem;
+
+    margin-top: 25px;
+    margin-left: 10px;
+}
+
+.size-bar
+{
+    margin-left: 10px;
+    margin-top: 8px;
+    width: 85%;
+}
