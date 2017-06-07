@@ -8,7 +8,6 @@ body {
 
 .sidebar
 {
-    border-right: 2px solid #BBBBBB;
     padding-left: 20px;
     padding-right: 20px;
 
@@ -146,7 +145,7 @@ body {
 .drive-content
 {
     padding: 20px;
-
+    border-left: 2px solid #bbbbbb;
 }
 
 .menu-files-and-folders
