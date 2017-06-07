@@ -39,6 +39,7 @@ class PublicController < ApplicationController
           @user.root_directory_id = directory.id
           @user.save!
         end
+        EdyskMailer.new.send(@user.email, "Witamy na edysku!", "Dzień dobry, #{@user.login}!\nWitamy w Edysku! Poznaj już dziś wszystkie możliwości i bezpiecznie przechowuj swoje dane, mając do nich dostęp z każdego miejsca. \nPozdrawiamy –\nZespół Edysk")
         flash[:success] = "Zarejestrowano poprawnie!"
         redirect_to "/"
       end
