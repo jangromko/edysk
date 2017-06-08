@@ -11,8 +11,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+  <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 </head>
 
 <script>
@@ -646,6 +649,9 @@
   <div class="w3-col m4 l2 w3-hide-small">
     <nav class="sidebar w3-white"><br>
       <div class="w3-bar-block">
+        <a href="" id="my_drive_button"><i class="fa fa-folder-open"></i> Mój dysk</a>
+        <br/><br/>
+
         <button class="button-standard button-wide button-color-4 drop-button" onclick="newFileFolder()">Nowy</button>
 
         <div id="new-file-folder-selection" class="file-or-folder-dropdown w3-bar-block w3-hide dropdown-content">
@@ -675,6 +681,8 @@
                aria-valuemin="0" aria-valuemax="100" ng-style="{ width: 100*space.used/space.max_space +'%' }">
           </div>
         </div>
+
+        <a href="" id="chart_button"><i class="fa fa-bar-chart"></i> Zobacz szczegóły</a>
 
 
         <div id="new-name-modal" class="modal">
