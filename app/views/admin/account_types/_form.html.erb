@@ -1,32 +1,44 @@
-<%= form_for([:admin,admin_account_type],as: :admin_account_type, scope: :admin_account_type) do |f| %>
-  <% if admin_account_type.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(admin_account_type.errors.count, "error") %> prohibited this admin_account_type from being saved:</h2>
+<div id="content">
+  <div class="w3-display-container w3-animate-opacity">
 
-      <ul>
-      <% admin_account_type.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+    <div class="w3-display-middle center">
+      <div class="sectionTitleAdmin">
+        Edycja
+      </div>
+
+      <%= form_for([:admin,admin_account_type],as: :admin_account_type, scope: :admin_account_type) do |f| %>
+          <% if admin_account_type.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(admin_account_type.errors.count, "error") %> prohibited this admin_account_type from being saved:</h2>
+
+                <ul>
+                  <% admin_account_type.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
+
+          <div class="field">
+            <%= f.label :nazwa %>
+            <%= f.text_field :name %>
+          </div>
+
+          <div class="field">
+            <%= f.label :przestrzeń %>
+            <%= f.text_field :space %>
+          </div>
+
+          <div class="field">
+            <%= f.label :cena %>
+            <%= f.text_field :price %>
+          </div>
+
+          <div class="actions">
+
+            <%= f.submit "Zapisz", class: "buttonNew" %>
+          </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :nazwa %>
-    <%= f.text_field :name %>
   </div>
-
-  <div class="field">
-    <%= f.label :przestrzeń %>
-    <%= f.text_field :space %>
-  </div>
-
-  <div class="field">
-    <%= f.label :cena %>
-    <%= f.text_field :price %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
