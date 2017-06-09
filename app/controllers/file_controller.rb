@@ -125,6 +125,11 @@ class FileController < ApplicationController
         user.used_size += file.file.size
         file.size = file.file.size
         file.extension = file.name.split('.')[-1]
+        i = 0
+        while i < 5 && !file.valid?
+          file.name += "(1)"
+          i += 1
+        end
         file.save!
         user.save!
       end

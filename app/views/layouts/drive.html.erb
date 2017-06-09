@@ -62,17 +62,17 @@
 
 <body ng-app="DriveApp" ng-keypress="key_pressed($event)" ng-controller="DriveController">
 
-<!-- Navbar -->
+!-- Navbar -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-card-2">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="menuSmall()" title="Menu"><i class="fa fa-bars"></i></a>
-    <a href="#" class="black no-decoration w3-bar-item w3-padding-large"><b>E-dysk</b></a>
+    <a href="" class="black no-decoration w3-bar-item w3-padding-large"><b>E-dysk</b></a>
     <div class="w3-dropdown-hover w3-hide-small">
       <button class="w3-padding-large w3-button" title="More">WIĘCEJ <i class="fa fa-caret-down"></i></button>
       <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="#" class="w3-bar-item w3-button">REGULAMIN</a>
-        <a href="#" class="w3-bar-item w3-button">WIĘCEJ MOŻLIWOŚCI</a>
-        <a href="#" class="w3-bar-item w3-button">POMOC</a>
+        <a href="" class="w3-bar-item w3-button">REGULAMIN</a>
+        <a href="" class="w3-bar-item w3-button">WIĘCEJ MOŻLIWOŚCI</a>
+        <a href="" class="w3-bar-item w3-button">POMOC</a>
       </div>
     </div>
     <div class="login-register">
@@ -102,14 +102,15 @@
                 $scope.tab = 0;
                 $scope.change_tab = function(tab)
                 {
+                    if(tab == 0 && $scope.tab == 0)
+                    {
+                        $scope.current_directory = $scope.path[0];
+                    }
                     $scope.tab = tab;
                 };
 
-
-
-
                     $scope.$watch("tab", function (new_value, old_value) {
-                   switch($scope.tab)
+                   switch(new_value)
                    {
                        case 1:
                            $http.get('/file/extensions_list')
@@ -665,33 +666,50 @@
 
                     $scope.clipboard.selected_directories.forEach(function (element)
                     {
-                        var url = "";
-                        if ($scope.clipboard.cut)
-                            url = "/dir/move";
-                        else
-                            url = "/dir/copy";
+                        if($scope.path.map(function(directory)
+                            {
+                                return directory.id;
+                            }).indexOf(element) != -1)
+                        {
+                            alert("Nie możesz przenieść katalogu nadrzędnego do podrzędnego!");
+                        }
+                        else {
+                            var url = "";
+                            if ($scope.clipboard.cut)
+                                url = "/dir/move";
+                            else
+                                url = "/dir/copy";
 
-                        $http.post(url, {
-                            dir_id: element,
-                            parent_directory: $scope.current_directory.id
-                        }).then(function (response)
-                        {
-                            if ($scope.current_directory.id == response.data.directory.directory_id)
-                                $scope.directories.push(response.data.directory);
-                        }, function(response)
-                        {
-                            alert(response.data.errors);
-                        });
+                            $http.post(url, {
+                                dir_id: element,
+                                parent_directory: $scope.current_directory.id
+                            }).then(function (response) {
+                                if ($scope.current_directory.id == response.data.directory.directory_id)
+                                    $scope.directories.push(response.data.directory);
+                            }, function (response) {
+                                alert(response.data.errors);
+                            });
+                        }
                     });
 
                     $scope.clipboard.selected_directories = [];
                 };
 
-                $scope.validate_change_name = function ()
+                $scope.validate_change_name = function (value)
                 {
                     if ($scope.new_name.is_file)
                     {
-
+                        return $scope.files.map(function(file){
+                            if(file.id != $scope.new_name.id)
+                              return file.name
+                        }).indexOf(value) == -1;
+                    }
+                    else
+                    {
+                        return $scope.directories.map(function(directory){
+                            if(directory.id != $scope.new_name.id)
+                                return directory.name
+                            }).indexOf(value) == -1;
                     }
                 }
             }])
@@ -781,11 +799,12 @@
 
 
         <div id="new-name-modal" class="modal">
-          <form name="new_folder_form" ng-submit="change_name()">
+          <form name="change_name_form" ng-submit="change_name_form.$valid && change_name()">
             <div class="modal-content">
               <div class="modal-title">Zmień nazwę</div>
-              <input class="input-in-modal" ng-model="new_name.name" ui-validate="validate_change_name()" type="text" id="new_name"/>
+              <input class="input-in-modal" ng-model="new_name.name" ui-validate="{val: 'validate_change_name($value)'}" type="text" id="new_name"/>
               <button type="submit" class="modal-button">OK</button>
+              <div ng-show="!change_name_form.$valid">Niepoprawna nazwa</div>
             </div>
           </form>
         </div>
