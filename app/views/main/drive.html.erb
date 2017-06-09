@@ -1,3 +1,4 @@
+<div ng-show="tab == 0">
 <nav id="context-menu" class="context-menu">
   <ul class="context-menu__items">
     <li class="context-menu__item">
@@ -263,15 +264,15 @@
                 console.log("ID pliku: " + itemInContext.getAttribute("file-id") + ", akcja - " + link.getAttribute("data-action"));
                 if (link.getAttribute("data-action") == 'Delete')
                 {
-                    /*$http.delete("/file/remove", {
-                        params: {
-                            file_id: itemInContext.getAttribute("file-id")
-                        }
-                    }).then(function (response)
-                    {
-                    })
+                  /*$http.delete("/file/remove", {
+                   params: {
+                   file_id: itemInContext.getAttribute("file-id")
+                   }
+                   }).then(function (response)
+                   {
+                   })
 
-                    delete */
+                   delete */
                 }
             }
 
@@ -348,6 +349,20 @@
     <td>&nbsp;</td>
   </tr>
 </table>
+</div>
+<div ng-show="tab == 1">
+<div class="center">
+  <p id="files_chart_title">Zobacz, jakie rodzaje plików masz na Edysku</p>
+</div>
+<div class="w3-col l3 m2 s0">
+  <p></p>
+</div>
+<div class="center w3-col l6 m8 s12">
+  <div class="ct-chart ct-square" id="files_chart"><chartist data="{{ chart.data }}" options="{{ chart.options }}" responsive-options="<your responsive options>" type="pie"></chartist>
+  </div>
+</div>
+<div class="w3-col l3 m2 s0">
+  <p></p>
+</div>
 
-
-
+</div>

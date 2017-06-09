@@ -11,8 +11,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+  <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 </head>
 
 <script>
@@ -96,7 +99,111 @@
         angular.module('DriveApp', ['cfp.hotkeys', 'ui.validate'])
             .controller('DriveController', ['$scope', '$http', 'hotkeys', function ($scope, $http, hotkeys)
             {
+                $scope.tab = 0;
+                $scope.change_tab = function(tab)
+                {
+                    $scope.tab = tab;
+                };
 
+
+
+
+                    $scope.$watch("tab", function (new_value, old_value) {
+                   switch($scope.tab)
+                   {
+                       case 1:
+                           $http.get('/file/extensions_list')
+                               .then(function(response){
+                                   var chart = new Chartist.Pie('.ct-chart', {
+                                           labels: response.data.chart.labels,
+                                           series: response.data.chart.series
+                                       }, {
+                                           donut: true,
+                                           showLabel: true,
+                                           donutWidth: 10,
+                                           startAngle: 270
+                                       },
+
+                                       [
+                                           ['screen and (min-width: 80px)', {
+                                               chartPadding: 70,
+                                               labelOffset: 10,
+                                               labelDirection: 'explode',
+                                               donutWidth: 8,
+                                               labelInterpolationFnc: function(value) {
+                                                   return value;
+                                               }
+                                           }],
+                                           ['screen and (min-width: 240px)', {
+                                               chartPadding: 70,
+                                               labelOffset: 20,
+                                               labelDirection: 'explode',
+                                               donutWidth: 15,
+                                               labelInterpolationFnc: function(value) {
+                                                   return value;
+                                               }
+                                           }],
+                                           ['screen and (min-width: 720px)', {
+                                               chartPadding: 70,
+                                               labelOffset: 30,
+                                               labelDirection: 'explode',
+                                               donutWidth: 35,
+                                               labelInterpolationFnc: function(value) {
+                                                   return value;
+                                               }
+                                           }],
+                                           ['screen and (min-width: 1024px)', {
+                                               labelOffset: 80,
+                                               chartPadding: 80,
+                                               donutWidth: 80
+                                           }]
+                                       ]
+                                   );
+
+                                   chart.on('draw', function (data)
+                                   {
+                                       if (data.type === 'slice')
+                                       {
+                                           // Get the total path length in order to use for dash array animation
+                                           var pathLength = data.element._node.getTotalLength();
+
+                                           // Set a dasharray that matches the path length as prerequisite to animate dashoffset
+                                           data.element.attr({
+                                               'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+                                           });
+
+                                           // Create animation definition while also assigning an ID to the animation for later sync usage
+                                           var animationDefinition = {
+                                               'stroke-dashoffset': {
+                                                   id: 'anim' + data.index,
+                                                   dur: 600,
+                                                   from: -pathLength + 'px',
+                                                   to: '0px',
+                                                   easing: Chartist.Svg.Easing.easeOutQuint,
+                                                   // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
+                                                   fill: 'freeze'
+                                               }
+                                           };
+
+                                           // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
+                                           if (data.index !== 0)
+                                           {
+                                               animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
+                                           }
+
+                                           // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
+                                           data.element.attr({
+                                               'stroke-dashoffset': -pathLength + 'px'
+                                           });
+
+                                           // We can't use guided mode as the animations need to rely on setting begin manually
+                                           // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
+                                           data.element.animate(animationDefinition, false);
+                                       }
+                                   });
+                               });
+                   }
+                });
                 hotkeys.bindTo($scope)
                     .add({
                         combo: 'ctrl+a',
@@ -115,14 +222,7 @@
                         }
                     });
 
-                hotkeys.bindTo($scope)
-                    .add({
-                        combo: 'ctrl+c',
-                        callback: function (event, hotkey)
-                        {
-                            $scope.copy();
-                        }
-                    });
+
 
                 hotkeys.bindTo($scope)
                     .add({
@@ -644,7 +744,10 @@
   <div class="w3-col m4 l2 w3-hide-small">
     <nav class="sidebar w3-white"><br>
       <div class="w3-bar-block">
-        <button class="button-standard button-wide button-color-4 drop-button" onclick="newFileFolder()">Nowy</button>
+        <a href="" id="my_drive_button" ng-click="change_tab(0)"><i class="fa fa-folder-open"></i> Mój dysk</a>
+        <br/><br/>
+
+        <button class="button-standard button-wide button-color-4 drop-button" onclick="newFileFolder()" ng-disabled="tab != 0">Nowy</button>
 
         <div id="new-file-folder-selection" class="file-or-folder-dropdown w3-bar-block w3-hide dropdown-content">
           <button class="w3-bar-item file-or-folder-dropdown-item" onclick="fileDialog()">Plik</button>
@@ -654,11 +757,11 @@
         <input id="file-dialog" type="file" style="display: none"/>
 
 
-        <button id="download-button" class="button-standard button-wide button-color-4 button-margin-top-20" ng-click="download_selected_file()" ng-disabled="selected_files.length != 1 || selected_directories.length != 0">
+        <button id="download-button" class="button-standard button-wide button-color-4 button-margin-top-20" ng-click="download_selected_file()" ng-disabled="selected_files.length != 1 || selected_directories.length != 0 || tab != 0">
           <i class="fa fa-download"> Pobierz</i>
         </button>
 
-        <button id="share-button" class="button-standard button-wide button-color-4 button-margin-top-20" ng-click="publish()" ng-disabled="!(selected_files.length == 1 && selected_directories.length == 0)">
+        <button id="share-button" class="button-standard button-wide button-color-4 button-margin-top-20" ng-click="publish()" ng-disabled="!(selected_files.length == 1 && selected_directories.length == 0) || tab != 0">
           <i class="fa fa-share"> Udostępnij</i>
           <input type="hidden" id="share_url" ng-model="share_url"/>
         </button>
@@ -673,6 +776,8 @@
                aria-valuemin="0" aria-valuemax="100" ng-style="{ width: 100*space.used/space.max_space +'%' }">
           </div>
         </div>
+
+        <a href="" id="chart_button" ng-click="change_tab(1)"><i class="fa fa-bar-chart"></i> Zobacz szczegóły</a>
 
 
         <div id="new-name-modal" class="modal">

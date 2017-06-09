@@ -106,8 +106,8 @@ class FileController < ApplicationController
       file = UserFile.find(params[:file_id])
       copied_file = file.deep_dup
       CopyCarrierwaveFile::CopyFileService.new(file, copied_file, :file)
-      file.directory_id = params[:dir_id]
-      file.save!
+      copied_file.directory_id = params[:dir_id]
+      copied_file.save!
       render :json => {response: :ok, file: file}
     end
   end
@@ -124,6 +124,7 @@ class FileController < ApplicationController
       else
         user.used_size += file.file.size
         file.size = file.file.size
+        file.extension = file.name.split('.')[-1]
         file.save!
         user.save!
       end
@@ -150,6 +151,18 @@ class FileController < ApplicationController
   end
   def authorization
     raise NotPermitted if user_id.nil?
+  end
+
+
+  def extensions_list
+      files = UserFile.where("user_id=?", user_id).group(:extension).sum(:size)
+      sum = files.values.sum
+    render :json => {response: :ok, chart: {
+        labels: files.keys,
+        series: files.values.map do
+          |val| (100*val.to_f/sum).to_i
+        end
+    }}
   end
   private
   def user_id

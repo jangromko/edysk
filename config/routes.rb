@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   put 'file/upload'
   post 'file/unshare'
   post 'file/publish'
+  get 'file/extensions_list'
   get 'registration', to: 'public#registration'
   post 'registration', to: 'public#registration'
   get 'forgot_password', to: 'public#forgot_password'

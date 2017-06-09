@@ -392,3 +392,51 @@ body {
     margin-top: 8px;
     width: 85%;
 }
+
+.ct-label
+{
+    font-size: 1.5rem !important;
+}
+
+#files_chart
+{
+    margin: 30px;
+}
+
+#files_chart_title
+{
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: 'Acme', sans-serif;
+    margin-top: 20px;
+}
+
+#my_drive_button
+{
+    margin: 10px;
+    font-size: 3rem;
+    color: #003a7f;
+    text-decoration: none;
+}
+
+#my_drive_button:hover
+{
+    text-decoration: none;
+    color: #416daa;
+}
+
+
+#chart_button
+{
+    margin: 10px;
+    font-size: 1.5rem;
+    color: #003a7f;
+    text-decoration: none;
+}
+
+#chart_button:hover
+{
+    text-decoration: none;
+    color: #416daa;
+}
