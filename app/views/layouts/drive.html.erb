@@ -60,7 +60,7 @@
     }
 </script>
 
-<body ng-app="DriveApp" ng-keypress="key_pressed($event)" ng-controller="DriveController">
+<body ng-app="DriveApp" ng-keydown="key_pressed($event)" ng-controller="DriveController">
 
 !-- Navbar -->
 <div class="w3-top">
@@ -802,7 +802,7 @@
           <form name="change_name_form" ng-submit="change_name_form.$valid && change_name()">
             <div class="modal-content">
               <div class="modal-title">Zmień nazwę</div>
-              <input class="input-in-modal" ng-model="new_name.name" ui-validate="{val: 'validate_change_name($value)'}" type="text" id="new_name"/>
+              <input class="input-in-modal" required ng-model="new_name.name" ui-validate="{val: 'validate_change_name($value)'}" type="text" id="new_name"/>
               <button type="submit" class="modal-button">OK</button>
               <div ng-show="!change_name_form.$valid">Niepoprawna nazwa</div>
             </div>

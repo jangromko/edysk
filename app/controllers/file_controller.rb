@@ -14,7 +14,7 @@ class FileController < ApplicationController
       file.update!(link: hash)
     end
     render :json => {
-        result: :ok,
+        response: :ok,
         link: file_shared_url+"/"+file.link
     }
   end
@@ -32,7 +32,7 @@ class FileController < ApplicationController
   end
 
   def shared
-    render :json => {result: :ok, files: User.find(user_id).shared_files.to_a.map {
+    render :json => {response: :ok, files: User.find(user_id).shared_files.to_a.map {
         |shared_file|
       user_file = shared_file.user_file
       {
@@ -52,7 +52,7 @@ class FileController < ApplicationController
       file.destroy!
     end
     user = User.find(user_id)
-    render :json => { result: :ok, space: space}
+    render :json => { response: :ok, space: space}
   end
 
   def name
@@ -63,9 +63,9 @@ class FileController < ApplicationController
     file.name = params[:new_name]
     if file.valid?
       file.save!
-      render :json => {result: :ok, file: file.as_json}
+      render :json => {response: :ok, file: file.as_json}
     else
-      render :json => {result: :error, errors: file.errors}
+      render :json => {response: :error, errors: file.errors}
     end
 
   end
@@ -124,7 +124,7 @@ class FileController < ApplicationController
       else
         user.used_size += file.file.size
         file.size = file.file.size
-        file.extension = file.name.split('.')[-1]
+        file.extension = file.name.split('.')[-1].downcase
         i = 0
         while i < 5 && !file.valid?
           file.name += "(1)"
@@ -134,7 +134,7 @@ class FileController < ApplicationController
         user.save!
       end
     end
-    render :json => {result: :ok, file: file.as_json(except: [:user_id, :file_id]), space: space }
+    render :json => {response: :ok, file: file.as_json(except: [:user_id, :file_id]), space: space }
   end
 
   def unshare
