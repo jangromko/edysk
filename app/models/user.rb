@@ -6,13 +6,14 @@ class User < ApplicationRecord
   validates :login, format: { with: /[a-z0-9\-]+/, message: "może zawierać tylko małe litery alfabetu łacińskiego, liczby i znak \"-\""}
   validates :email, presence: true, uniqueness: true
 
-  before_update do |user| #hashing the password
-    puts user.password_changed?.inspect
+  before_update do |user|
     if user.password_changed?
-      user.salt = SecureRandom.hex
-      user.password = Digest::SHA2.new(512).hexdigest(user.salt + user.password)
-      user.password_confirmation = user.password
+      hash_password(user)
     end
+  end
+
+  before_create do |user|
+    hash_password(user)
   end
 
   def self.authenticate(login, password)
@@ -21,6 +22,12 @@ class User < ApplicationRecord
 
     return user.id if user.password.eql?(Digest::SHA2.new(512).hexdigest(user.salt+password))
     return nil
+  end
+
+  def hash_password(user)
+    user.salt = SecureRandom.hex
+    user.password = Digest::SHA2.new(512).hexdigest(user.salt + user.password)
+    user.password_confirmation = user.password
   end
 
   has_one :directory, as: :root_directory, autosave: true
