@@ -28,7 +28,7 @@ class PublicController < ApplicationController
   end
 
   def recover_password
-    fp = ForgottenPassword.where("used=FALSE and hash_pk=?", params.require(:hash))
+    fp = ForgottenPassword.where("used=FALSE and hash_pk=? and created_at > ?", params.require(:hash), DateTime.now - 1.day)
     if fp.any?
       fp = fp[0]
       if request.post?
