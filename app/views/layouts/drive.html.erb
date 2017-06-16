@@ -274,9 +274,9 @@
                         if ($scope.sort_options.by == "name")
                         {
                             if ($scope.sort_options.order == "asc")
-                                return one.name.toLowerCase() > two.name.toLowerCase();
+                                return one.name.toLowerCase().localeCompare(two.name.toLowerCase());
                             else
-                                return one.name.toLowerCase() < two.name.toLowerCase();
+                                return (1-one.name.toLowerCase().localeCompare(two.name.toLowerCase()));
                         }
                         else
                         {
@@ -729,7 +729,7 @@
       <div class="modal-content">
         <span class="close">&times;</span>
         <div class="modal-title">Stwórz nowy folder</div>
-        <input class="input-in-modal" type="text" ui-validate="{name_exist: 'name_exists($value)'}" ng-model="new_directory.name" placeholder="Wpisz nazwę nowego katalogu"/>
+        <input class="input-in-modal" type="text" ui-validate="{name_exist: 'name_exists($value)'}"  required ng-model="new_directory.name" placeholder="Wpisz nazwę nowego katalogu"/>
         <button type="submit" class="modal-button">OK</button>
         <div class="error" ng-show="!new_folder_form.$valid">Niepoprawna nazwa!</div>
       </div>
