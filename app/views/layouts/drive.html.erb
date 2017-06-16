@@ -333,21 +333,26 @@
                         return function (e)
                         {
                             $scope.new_file.file = e.target.result;
+                            if((the_file.size+$scope.space.used) > $scope.space.max_space)
+                            {
+                                alert('Plik jest zbyt duży!')
+                            }
+                            else
+                            {
+                                $scope.new_file.name = the_file.name;
+                                $scope.new_file.directory_id = $scope.current_directory.id;
+                                $http.put("/file/upload", {file: $scope.new_file})
+                                    .then(function successCallback(response)
+                                    {
+                                        $scope.files.push(response.data.file);
+                                        $scope.new_file = {name: null, directory_id: -1, file: null};
+                                        $scope.space = response.data.space;
+                                    }, function(response)
+                                    {
+                                        alert(response.data.errors);
+                                    });
 
-                            $scope.new_file.name = the_file.name;
-                            $scope.new_file.directory_id = $scope.current_directory.id;
-                            $http.put("/file/upload", {file: $scope.new_file})
-                                .then(function successCallback(response)
-                                {
-                                    $scope.files.push(response.data.file);
-                                    $scope.new_file = {name: null, directory_id: -1, file: null};
-                                    $scope.space = response.data.space;
-                                }, function(response)
-                                {
-                                    alert(response.data.errors);
-                                });
-
-
+                            }
                         };
                     })(file);
 
