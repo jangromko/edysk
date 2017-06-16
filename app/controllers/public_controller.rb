@@ -14,6 +14,7 @@ class PublicController < ApplicationController
           until forgotten_password.save
             forgotten_password.hash_pk = SecureRandom.hex
           end
+          EdyskMailer.new.send(user.email, "Odzyskiwanie hasła", "Dzień dobry, #{user.login}!\nDla tego konta zażądano zmiany hasła. Jeżeli to ty chciałeś je zmienić, kliknij tu: #{recover_password_url(hash)}. \n Pozdrawiamy -\nZespół Edysk\n-----------\nŻądanie wygenerowano #{Time.now.strftime("%d/%m/%Y %H:%M")} z ip: #{request.remote_ip}")
         end
         render "forgotten_password_part2"
       else
@@ -23,6 +24,31 @@ class PublicController < ApplicationController
 
     else
       @forgotten_password = ForgottenPasswordForm.new
+    end
+  end
+
+  def recover_password
+    fp = ForgottenPassword.where("used=FALSE and hash_pk=?", params.require(:hash))
+    if fp.any?
+      fp = fp[0]
+      if request.post?
+        @recover_password = RecoverPassword.new(params.require(:password).permit(:password, :password_confirmation))
+        if @recover_password.valid?
+          user = fp.user
+          user.password = params.require(:password).permit(:password)[:password]
+          User.transaction do
+            user.save!
+            fp.used = true
+            fp.save!
+          end
+          redirect_to root_url
+        end
+      else
+        @recover_password = RecoverPassword.new
+      end
+    else
+      render :status => 404,
+             :plain => 'Not found'
     end
   end
   def registration
@@ -41,7 +67,7 @@ class PublicController < ApplicationController
         end
         EdyskMailer.new.send(@user.email, "Witamy na edysku!", "Dzień dobry, #{@user.login}!\nWitamy w Edysku! Poznaj już dziś wszystkie możliwości i bezpiecznie przechowuj swoje dane, mając do nich dostęp z każdego miejsca. \nPozdrawiamy –\nZespół Edysk")
         flash[:success] = "Zarejestrowano poprawnie!"
-        redirect_to "/"
+        redirect_to root_url
       end
     else
       @user = User.new

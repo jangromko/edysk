@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   post 'registration', to: 'public#registration'
   get 'forgot_password', to: 'public#forgot_password'
   post 'forgot_password', to: 'public#forgot_password'
+  get 'recover_password/:hash', to: 'public#recover_password', as: "recover_password"
+  post 'recover_password/:hash', to: 'public#recover_password'
   root to: 'public#home'
   get 'drive', to: 'main#drive'
   get 'logout', to: 'public#logout'
