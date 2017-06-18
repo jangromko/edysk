@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20170608224846) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["directory_id", "name"], name: "index_directories_on_directory_id_and_name", unique: true
-    t.index ["name", "directory_id"], name: "index_user_files_on_directory_id_and_name", unique: true
   end
 
   create_table "forgotten_passwords", primary_key: "hash_pk", id: :string, force: :cascade do |t|
@@ -71,6 +70,7 @@ ActiveRecord::Schema.define(version: 20170608224846) do
     t.string "file"
     t.integer "size"
     t.string "extension"
+    t.index ["directory_id", "name"], name: "index_user_files_on_directory_id_and_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
